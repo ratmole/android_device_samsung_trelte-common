@@ -62,19 +62,14 @@ TARGET_KERNEL_SOURCE := kernel/samsung/trelte
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 BOARD_KERNEL_IMAGE_NAME := zImage
 
-###
+# Inherit board specific defines
+-include device/samsung/trelte-common/board/*.mk
 
 # ADB Legacy Interface
 TARGET_USES_LEGACY_ADB_INTERFACE := true
 
 # Ant+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
-
-# Audio
-BOARD_USE_ALP_AUDIO := true
-
-# Audio HAL variant
-TARGET_AUDIOHAL_VARIANT := samsung
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
