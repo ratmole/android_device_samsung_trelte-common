@@ -1,6 +1,6 @@
 LOCAL_PATH := device/samsung/trelte-common
 
-PRODUCT_CHARACTERISTICS := tablet
+PRODUCT_CHARACTERISTICS := phone
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -118,8 +118,8 @@ PRODUCT_COPY_FILES += \
 
 # Graphics
 PRODUCT_AAPT_CONFIG := xlarge
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
-PRODUCT_AAPT_PREBUILT_DPI := xhdpi hdpi mdpi
+PRODUCT_AAPT_PREF_CONFIG := 560dpi
+PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
 
 PRODUCT_PACKAGES += \
     libion \
