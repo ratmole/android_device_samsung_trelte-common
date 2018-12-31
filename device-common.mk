@@ -29,6 +29,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.universal5433 \
     libexynoscamera_shim \
+    libcsc \
     Snap
 
 PRODUCT_PACKAGES += \
@@ -255,11 +256,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
-# Inherit products
--include $(LOCAL_PATH)/product/*.mk
-
 # Copy files
 -include $(LOCAL_PATH)/copy/*.mk
+
+# Inherit products
+-include $(LOCAL_PATH)/board/*.mk
+-include $(LOCAL_PATH)/product/*.mk
 
 # Vendor
 $(call inherit-product, vendor/samsung/trelte-common/trelte-common-vendor.mk)
