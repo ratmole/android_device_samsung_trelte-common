@@ -349,13 +349,6 @@ on fs
     chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
     chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
 
-# for datarouter
-    chown system system /dev/dun
-    chown system system /dev/ttyGS0
-    chown system system /dev/ttyGS1
-    chown system system /dev/ttyGS2
-    chown system system /dev/ttyGS3
-
 # MTP device permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system system /dev/usb_mtp_gadget
@@ -375,13 +368,55 @@ on fs
     chown system system /sys/class/lcd/panel/temperature
     chown system system /sys/class/lcd/panel/lux
 
+# for datarouter
+    chown system system /dev/dun
+    chown system system /dev/ttyGS0
+    chown system system /dev/ttyGS1
+    chown system system /dev/ttyGS2
+    chown system system /dev/ttyGS3
+# MIF
+    chown radio radio /sys/devices/virtual/misc/multipdp/waketime
+    chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
+    chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
+
+# Permissions for backlight
+    chown system system /sys/class/backlight/panel/brightness
+    chown system system /sys/class/backlight/panel/auto_brightness
+
+# Permissions for LCD
+    chown system radio /sys/class/lcd/panel/manufacture_code
+    chown system radio /sys/class/lcd/panel/lcd_type
+    chown system system /sys/class/lcd/panel/power_reduce
+    chown system system /sys/class/lcd/panel/siop_enable
+    chown system system /sys/class/lcd/panel/temperature
+
+# Permissions for LCD HMT
+    chown system system /sys/class/lcd/panel/hmt_on
+    chown system system /sys/class/lcd/panel/hmt_bright
+    chown system system /sys/class/mdnie/mdnie/hmt_color_temperature
+
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
     chown system system /sys/class/sec/tsp/input/enabled
 
 # Permissions for Touchkey
+    chown system radio /sys/class/sec/sec_touchkey/brightness
     chown system radio /sys/class/sec/sec_touchkey/touchkey_firm_update
+    chown system radio /sys/class/sec/sec_touchkey/touch_sensitivity
+    chown system radio /sys/class/sec/sec_touchkey/glove_mode
+    chown system radio /sys/class/sec/sec_touchkey/flip_mode
+    chown system radio /sys/class/sec/sec_touchkey/boost_level
     chown system system /sys/class/sec/sec_touchkey/input/enabled
+
+# Permissions for epen
+    chown system radio /sys/class/sec/sec_epen/epen_firm_update
+    chown system radio /sys/class/sec/sec_epen/epen_reset
+    chown system radio /sys/class/sec/sec_epen/epen_reset_result
+    chown system radio /sys/class/sec/sec_epen/epen_checksum
+    chown system radio /sys/class/sec/sec_epen/epen_checksum_result
+    chown system radio /sys/class/sec/sec_epen/epen_saving_mode
+    chown system radio /sys/class/sec/sec_epen/boost_level
+    chown system system /sys/class/sec/sec_epen/input/enabled
 
 # Permissions for gpio_keys
     chown radio system /sys/class/sec/sec_key/wakeup_keys
@@ -399,6 +434,7 @@ on fs
 # SENSORS
 # Fingerprint
     mkdir /dev/validity 0770 system system
+    mkdir /data/validity 0770 system system
 # Fingerprint_sensor
     chown system radio /sys/class/fingerprint/fingerprint/type_check
 # Accelerometer_sensor
@@ -420,7 +456,6 @@ on fs
     chown system radio /sys/class/sensors/proximity_sensor/thresh_low
     chown system radio /sys/class/sensors/proximity_sensor/barcode_emul_en
     chown system radio /sys/class/sensors/proximity_sensor/prox_offset_pass
-    chown system radio /sys/class/sensors/proximity_sensor/prox_trim
 # Light_sensor
     chown system radio /sys/class/sensors/light_sensor/lux
     chown system radio /sys/class/sensors/light_sensor/raw_data
@@ -434,72 +469,101 @@ on fs
     chown system radio /sys/class/sensors/gyro_sensor/selftest_dps
     chown system radio /sys/class/sensors/gyro_sensor/vendor
     chown system radio /sys/class/sensors/gyro_sensor/name
+# Barometer_sensor
+    chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
+    chown system radio /sys/class/sensors/barometer_sensor/vendor
+    chown system radio /sys/class/sensors/barometer_sensor/name
+    chown system radio /sys/class/sensors/barometer_sensor/calibration
 # Magnetic_sensor
-    chown system radio /sys/class/sensors/magnetic_sensor/adc
     chown system radio /sys/class/sensors/magnetic_sensor/raw_data
-    chown system radio /sys/class/sensors/magnetic_sensor/selftest
-    chown system radio /sys/class/sensors/magnetic_sensor/status
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
-# Grip_sensor
-    chown system radio /sys/class/sensors/grip_sensor/vendor
-    chown system radio /sys/class/sensors/grip_sensor/name
-    chown system radio /sys/class/sensors/grip_sensor/raw_data
-    chown system radio /sys/class/sensors/grip_sensor/calibration
-    chown system radio /sys/class/sensors/grip_sensor/threshold
-    chown system radio /sys/class/sensors/grip_sensor/onoff
-# Grip_sensor wifi
-    chown system radio /sys/class/sensors/grip_sensor_wifi/vendor
-    chown system radio /sys/class/sensors/grip_sensor_wifi/name
-    chown system radio /sys/class/sensors/grip_sensor_wifi/raw_data
-    chown system radio /sys/class/sensors/grip_sensor_wifi/calibration
-    chown system radio /sys/class/sensors/grip_sensor_wifi/threshold
-    chown system radio /sys/class/sensors/grip_sensor_wifi/onoff
+# gesture_sensor
+    chown system radio /sys/class/sensors/gesture_sensor/vendor
+    chown system radio /sys/class/sensors/gesture_sensor/name
+    chown system radio /sys/class/sensors/gesture_sensor/raw_data
+    chown system radio /sys/class/sensors/gesture_sensor/ir_current
+    chown system radio /sys/class/sensors/gesture_sensor/selftest
+# Temphumidity_sensor
+    chown system radio /sys/class/sensors/temphumidity_sensor/vendor
+    chown system radio /sys/class/sensors/temphumidity_sensor/name
+    chown system radio /sys/class/sensors/temphumidity_sensor/engine_ver
+    chown system radio /sys/class/sensors/temphumidity_sensor/send_accuracy
+    chown system radio /sys/class/sensors/temphumidity_sensor/mcu_batt_adc
+    chown system radio /sys/class/sensors/temphumidity_sensor/mcu_chg_adc
+    chown system radio /sys/class/sensors/temphumidity_sensor/batt_temperature
+    chown system radio /sys/class/sensors/temphumidity_sensor/chg_temperature
+# HRM_sensor
+    chown system radio /sys/class/sensors/hrm_sensor/eol_test
+    chown system radio /sys/class/sensors/hrm_sensor/eol_test_result
+    chown system radio /sys/class/sensors/hrm_sensor/eol_test_status
+    chown system radio /sys/class/sensors/hrm_sensor/hr_range
+    chown system radio /sys/class/sensors/hrm_sensor/hr_range2
+    chown system radio /sys/class/sensors/hrm_sensor/look_mode_ir
+    chown system radio /sys/class/sensors/hrm_sensor/look_mode_red
+    chown system radio /sys/class/sensors/hrm_sensor/led_current
+    chown system radio /sys/class/sensors/hrm_sensor/led_current1
+    chown system radio /sys/class/sensors/hrm_sensor/led_current2
+    chown system radio /sys/class/sensors/hrm_sensor/led_current3
+    chown system radio /sys/class/sensors/hrm_sensor/led_current4
+    chown system radio /sys/class/sensors/hrm_sensor/int_pin_check
+    chown system radio /sys/class/sensors/hrm_sensor/lib_ver
+    chown system radio /sys/class/sensors/hrm_sensor/name
+    chown system radio /sys/class/sensors/hrm_sensor/vendor
+    chown system radio /sys/class/sensors/hrm_sensor/part_type
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_reg_read
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_reg_write
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_mode
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_configuration
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_stat
+    chown system radio /sys/class/sensors/hrm_sensor/elf_lib_ver
+    chown system radio /sys/class/sensors/hrm_sensor/eol_lib_ver
+    chown system radio /sys/class/sensors/hrm_sensor/device_id
+    chown system radio /sys/class/sensors/hrm_sensor/hrm_flush
+# HRMLED_sensor
+    chown system radio /sys/class/sensors/hrmled_sensor/name
+    chown system radio /sys/class/sensors/hrmled_sensor/vendor
+    chown system radio /sys/class/sensors/hrmled_sensor/hrmled_flush
+# UV_sensor
+    chown system radio /sys/class/sensors/uv_sensor/uv_lib_ver
+    chown system radio /sys/class/sensors/uv_sensor/name
+    chown system radio /sys/class/sensors/uv_sensor/vendor
+    chown system radio /sys/class/sensors/uv_sensor/uv_sr_interval
+    chown system radio /sys/class/sensors/uv_sensor/uv_eol_test
+    chown system radio /sys/class/sensors/uv_sensor/uv_flush
+# SHTC1 BULK
+    chmod 0600 /dev/shtc1_sensor
+    chown system system /dev/shtc1_sensor
+# SensorHub
+    chown system radio /sys/class/sensors/ssp_sensor/enable
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_rev
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_name
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_test
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_reset
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_update
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_sleep_test
+    chown system radio /sys/class/sensors/ssp_sensor/ori_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/mag_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/shake_cam
 
-    chown system radio /sys/bus/iio/devices/iio:device10
-    chown system radio /sys/bus/iio/devices/iio:device10/buffer
-    chown system radio /sys/bus/iio/devices/iio:device10/buffer/enable
-    chown system radio /sys/bus/iio/devices/iio:device10/buffer/length
-    chown system radio /sys/bus/iio/devices/iio:device10/trigger
-    chown system radio /sys/bus/iio/devices/iio:device10/trigger/current_trigger
-    chown system radio /sys/bus/iio/devices/iio:device10/scan_elements/in_grip_voltage_en
-    chown system radio /sys/bus/iio/devices/iio:device10/scan_elements/in_timestamp_en
-    chown system radio /sys/bus/iio/devices/iio:device10/scan_elements
-
-    chmod 0760 /sys/bus/iio/devices/iio:device10
-    chmod 0760 /sys/bus/iio/devices/iio:device10/buffer
-    chmod 0760 /sys/bus/iio/devices/iio:device10/buffer/enable
-    chmod 0760 /sys/bus/iio/devices/iio:device10/buffer/length
-    chmod 0760 /sys/bus/iio/devices/iio:device10/trigger
-    chmod 0760 /sys/bus/iio/devices/iio:device10/trigger/current_trigger
-    chmod 0760 /sys/bus/iio/devices/iio:device10/scan_elements/in_grip_voltage_en
-    chmod 0760 /sys/bus/iio/devices/iio:device10/scan_elements/in_timestamp_en
-    chmod 0760 /sys/bus/iio/devices/iio:device10/scan_elements
-
-    chown system radio /sys/bus/iio/devices/iio:device11
-    chown system radio /sys/bus/iio/devices/iio:device11/buffer
-    chown system radio /sys/bus/iio/devices/iio:device11/buffer/enable
-    chown system radio /sys/bus/iio/devices/iio:device11/buffer/length
-    chown system radio /sys/bus/iio/devices/iio:device11/trigger
-    chown system radio /sys/bus/iio/devices/iio:device11/trigger/current_trigger
-    chown system radio /sys/bus/iio/devices/iio:device11/scan_elements/in_grip_wifi_current_en
-    chown system radio /sys/bus/iio/devices/iio:device11/scan_elements/in_timestamp_en
-    chown system radio /sys/bus/iio/devices/iio:device11/scan_elements
-
-    chmod 0760 /sys/bus/iio/devices/iio:device11
-    chmod 0760 /sys/bus/iio/devices/iio:device11/buffer
-    chmod 0760 /sys/bus/iio/devices/iio:device11/buffer/enable
-    chmod 0760 /sys/bus/iio/devices/iio:device11/buffer/length
-    chmod 0760 /sys/bus/iio/devices/iio:device11/trigger
-    chmod 0760 /sys/bus/iio/devices/iio:device11/trigger/current_trigger
-    chmod 0760 /sys/bus/iio/devices/iio:device11/scan_elements/in_grip_wifi_current_en
-    chmod 0760 /sys/bus/iio/devices/iio:device11/scan_elements/in_timestamp_en
-    chmod 0760 /sys/bus/iio/devices/iio:device11/scan_elements
+# Sensorhub IIO
+    chown system radio /sys/class/sensors/ssp_sensor/accel_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/rot_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/game_rot_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/step_det_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/gyro_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/uncalib_gyro_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/mag_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/uncal_mag_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/ssp_flush
+    chmod 0600 /dev/batch_io
+    chown system system /dev/batch_io
 
 # Permissions for MDNIE
     chown system media_rw /sys/class/mdnie/mdnie/mode
     chown system media_rw /sys/class/mdnie/mdnie/scenario
     chown system system /sys/class/mdnie/mdnie/accessibility
+    chown system system /sys/class/mdnie/mdnie/auto_brightness
     chown system system /sys/class/mdnie/mdnie/sensorRGB
 
 # Copy DRM Key
@@ -510,6 +574,71 @@ on fs
 
     chown radio system /efs
     chmod 0771 /efs
+
+# IR_LED
+    chown system radio /sys/class/sec/sec_ir/ir_send
+    chown system radio /sys/class/sec/sec_ir/ir_send_result
+    chown system radio /sys/class/sec/sec_ir/ir_data
+    chmod 0660 /dev/peel_ir
+    chown system radio /dev/peel_ir
+
+# SVC LED samsung specific
+    chown system system /sys/class/sec/led/led_r
+    chown system system /sys/class/sec/led/led_g
+    chown system system /sys/class/sec/led/led_b
+    chown system system /sys/class/sec/led/led_pattern
+    chown system system /sys/class/sec/led/led_blink
+    chown system system /sys/class/sec/led/led_lowpower
+
+# SVC LED common
+    chown system system /sys/class/leds/led_r/brightnes
+    chown system system /sys/class/leds/led_g/brightnes
+    chown system system /sys/class/leds/led_b/brightnes
+    chown system system /sys/class/leds/led_r/delay_on
+    chown system system /sys/class/leds/led_g/delay_on
+    chown system system /sys/class/leds/led_b/delay_on
+    chown system system /sys/class/leds/led_r/delay_off
+    chown system system /sys/class/leds/led_g/delay_off
+    chown system system /sys/class/leds/led_b/delay_off
+    chown system system /sys/class/leds/led_r/blink
+    chown system system /sys/class/leds/led_g/blink
+    chown system system /sys/class/leds/led_b/blink
+
+# Led cover
+    chmod 0660 /dev/ttySAC2
+    chown system system /dev/ttySAC2
+    chown system system /sys/class/sec/ledcover/cover_pwr
+
+# ARGOSD network_throughput
+    chown system system /dev/network_throughput
+
+# MHL
+    chown system radio /sys/class/mhl/test_v2
+    chown system radio /sys/class/mhl/connection
+# on userdebug and eng builds, permision change mhl sysfs
+on property:ro.debuggable=1
+    chmod 0666 /sys/class/mhl/timing
+    chmod 0666 /sys/class/mhl/swing_v2
+    chmod 0666 /sys/class/mhl/swing_v3
+    chmod 0666 /sys/class/mhl/reg_tuning
+    chmod 0666 /sys/class/mhl/reg_set
+    chmod 0666 /sys/class/mhl/test_case
+    chmod 0666 /sys/class/mhl/test_v2
+    chmod 0666 /sys/class/mhl/connection
+
+
+# ARGOSD
+service argos-daemon /system/bin/argosd
+    class main
+    user system
+    group system radio
+	
+# ITP mode enter/exit
+on property:ril.cbd.modechan=0
+    restart ril-daemon
+
+on property:ril.cbd.modechan=2
+    restart ril-daemon	
 
 # permission for CHARGING
     chown system radio /sys/class/power_supply/battery/batt_discharging_check
@@ -528,6 +657,51 @@ on property:sys.boot_completed=1
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
     write /sys/module/fiq_debugger/parameters/kgdb_enable 1
+	
+# LPM
+on property:ro.bootmode=charger
+    mount ext4 /dev/block/mmcblk0p18 /system wait ro
+
+on property:ro.bootmode=charger
+    class_start sec-charger
+
+service cameraserver /system/bin/cameraserver
+    class main
+    user cameraserver
+    group media_rw audio camera drmrpc inet shell sdcard_r system
+	
+	
+# SensorHub (Location Hub)
+service lhd /system/vendor/bin/lhd /system/vendor/etc/lhd.conf
+    class main
+    user gps
+    group system inet net_raw
+    ioprio be 0
+
+on charger
+    # Set cpu governor to powersave while in charging mode
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor powersave
+
+    # EHCI runtime enable for LPA
+    write /sys/devices/platform/s5p-ehci/power/control auto
+
+    # Do not set any USB mode while charging
+    setprop sys.usb.config charging
+
+# SENSOR FRAMEWORK : starts fingerprintService
+service vcsFPService /system/bin/vcsFPService
+    class late_start
+    user system
+    group system
+	seclabel u:r:vcsFPService:s0
+
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
+    group input	
 
 # Charging
 service charger /charger

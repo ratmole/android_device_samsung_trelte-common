@@ -470,28 +470,44 @@ on boot
     chown system usb /sys/class/usb_notify/usb_control/hw_param
     chmod 0664 /sys/class/usb_notify/usb_control/hw_param
 	
-# Sensors permissions
+# Permissions for System LSI NFC
+# NFC : Permissions for NFC
+    chmod 0660 /dev/sec-nfc
+# NFC : change owner
+    chown nfc nfc /dev/sec-nfc
+
+# MOBEAM
+    chown system radio /sys/class/sec/sec_barcode_emul/vendor
+    chown system radio /sys/class/sec/sec_barcode_emul/name
+    chown system radio /sys/class/sec/sec_barcode_emul/barcode_send
+    chown system radio /sys/class/sec/sec_barcode_emul/barcode_led_status
+    chown system radio /sys/class/sec/sec_barcode_emul/barcode_ver_check
+
+# SENSORS
+# Fingerprint
+    mkdir /dev/validity 0770 system system
+    mkdir /data/validity 0770 system system
+# Fingerprint_sensor
+    chown system radio /sys/class/fingerprint/fingerprint/type_check
 # Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
     chown system radio /sys/class/sensors/accelerometer_sensor/calibration
     chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
-    chown system radio /sys/class/sensors/accelerometer_sensor/selftest
     chown system radio /sys/class/sensors/accelerometer_sensor/vendor
     chown system radio /sys/class/sensors/accelerometer_sensor/name
-    chown system system /efs/calibration_data
-    chmod 0666 /efs/calibration_data
+    chown system radio /sys/class/sensors/accelerometer_sensor/selftest
+    chown system radio /sys/class/sensors/accelerometer_sensor/lowpassfilter
 # Proximity_sensor
     chown system radio /sys/class/sensors/proximity_sensor/state
     chown system radio /sys/class/sensors/proximity_sensor/raw_data
     chown system radio /sys/class/sensors/proximity_sensor/prox_avg
     chown system radio /sys/class/sensors/proximity_sensor/prox_cal
-    chown system radio /sys/class/sensors/proximity_sensor/prox_thresh
-    chown system radio /sys/class/sensors/proximity_sensor/thresh_high
-    chown system radio /sys/class/sensors/proximity_sensor/thresh_low
-    chown system radio /sys/class/sensors/proximity_sensor/thresh_detect_high
-    chown system radio /sys/class/sensors/proximity_sensor/thresh_detect_low
     chown system radio /sys/class/sensors/proximity_sensor/vendor
     chown system radio /sys/class/sensors/proximity_sensor/name
+    chown system radio /sys/class/sensors/proximity_sensor/thresh_high
+    chown system radio /sys/class/sensors/proximity_sensor/thresh_low
+    chown system radio /sys/class/sensors/proximity_sensor/barcode_emul_en
+    chown system radio /sys/class/sensors/proximity_sensor/prox_offset_pass
 # Light_sensor
     chown system radio /sys/class/sensors/light_sensor/lux
     chown system radio /sys/class/sensors/light_sensor/raw_data
@@ -500,18 +516,100 @@ on boot
 # Gyro_sensor
     chown system radio /sys/class/sensors/gyro_sensor/power_on
     chown system radio /sys/class/sensors/gyro_sensor/power_off
-    chown system media /sys/class/sensors/gyro_sensor/temperature
+    chown system radio /sys/class/sensors/gyro_sensor/temperature
     chown system radio /sys/class/sensors/gyro_sensor/selftest
     chown system radio /sys/class/sensors/gyro_sensor/selftest_dps
     chown system radio /sys/class/sensors/gyro_sensor/vendor
     chown system radio /sys/class/sensors/gyro_sensor/name
+# Barometer_sensor
+    chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
+    chown system radio /sys/class/sensors/barometer_sensor/vendor
+    chown system radio /sys/class/sensors/barometer_sensor/name
+    chown system radio /sys/class/sensors/barometer_sensor/calibration
 # Magnetic_sensor
-    chown system radio /sys/class/sensors/magnetic_sensor/selftest
     chown system radio /sys/class/sensors/magnetic_sensor/raw_data
-    chown system radio /sys/class/sensors/magnetic_sensor/adc
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
-    chown system radio /sys/class/sensors/magnetic_sensor/status
+# gesture_sensor
+    chown system radio /sys/class/sensors/gesture_sensor/vendor
+    chown system radio /sys/class/sensors/gesture_sensor/name
+    chown system radio /sys/class/sensors/gesture_sensor/raw_data
+    chown system radio /sys/class/sensors/gesture_sensor/ir_current
+    chown system radio /sys/class/sensors/gesture_sensor/selftest
+# Temphumidity_sensor
+    chown system radio /sys/class/sensors/temphumidity_sensor/vendor
+    chown system radio /sys/class/sensors/temphumidity_sensor/name
+    chown system radio /sys/class/sensors/temphumidity_sensor/engine_ver
+    chown system radio /sys/class/sensors/temphumidity_sensor/send_accuracy
+    chown system radio /sys/class/sensors/temphumidity_sensor/mcu_batt_adc
+    chown system radio /sys/class/sensors/temphumidity_sensor/mcu_chg_adc
+    chown system radio /sys/class/sensors/temphumidity_sensor/batt_temperature
+    chown system radio /sys/class/sensors/temphumidity_sensor/chg_temperature
+# HRM_sensor
+    chown system radio /sys/class/sensors/hrm_sensor/eol_test
+    chown system radio /sys/class/sensors/hrm_sensor/eol_test_result
+    chown system radio /sys/class/sensors/hrm_sensor/eol_test_status
+    chown system radio /sys/class/sensors/hrm_sensor/hr_range
+    chown system radio /sys/class/sensors/hrm_sensor/hr_range2
+    chown system radio /sys/class/sensors/hrm_sensor/look_mode_ir
+    chown system radio /sys/class/sensors/hrm_sensor/look_mode_red
+    chown system radio /sys/class/sensors/hrm_sensor/led_current
+    chown system radio /sys/class/sensors/hrm_sensor/led_current1
+    chown system radio /sys/class/sensors/hrm_sensor/led_current2
+    chown system radio /sys/class/sensors/hrm_sensor/led_current3
+    chown system radio /sys/class/sensors/hrm_sensor/led_current4
+    chown system radio /sys/class/sensors/hrm_sensor/int_pin_check
+    chown system radio /sys/class/sensors/hrm_sensor/lib_ver
+    chown system radio /sys/class/sensors/hrm_sensor/name
+    chown system radio /sys/class/sensors/hrm_sensor/vendor
+    chown system radio /sys/class/sensors/hrm_sensor/part_type
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_reg_read
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_reg_write
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_mode
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_configuration
+    chown system radio /sys/class/sensors/hrm_sensor/adpd_stat
+    chown system radio /sys/class/sensors/hrm_sensor/elf_lib_ver
+    chown system radio /sys/class/sensors/hrm_sensor/eol_lib_ver
+    chown system radio /sys/class/sensors/hrm_sensor/device_id
+    chown system radio /sys/class/sensors/hrm_sensor/hrm_flush
+# HRMLED_sensor
+    chown system radio /sys/class/sensors/hrmled_sensor/name
+    chown system radio /sys/class/sensors/hrmled_sensor/vendor
+    chown system radio /sys/class/sensors/hrmled_sensor/hrmled_flush
+# UV_sensor
+    chown system radio /sys/class/sensors/uv_sensor/uv_lib_ver
+    chown system radio /sys/class/sensors/uv_sensor/name
+    chown system radio /sys/class/sensors/uv_sensor/vendor
+    chown system radio /sys/class/sensors/uv_sensor/uv_sr_interval
+    chown system radio /sys/class/sensors/uv_sensor/uv_eol_test
+    chown system radio /sys/class/sensors/uv_sensor/uv_flush
+# SHTC1 BULK
+    chmod 0600 /dev/shtc1_sensor
+    chown system system /dev/shtc1_sensor
+# SensorHub
+    chown system radio /sys/class/sensors/ssp_sensor/enable
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_rev
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_name
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_test
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_reset
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_update
+    chown system radio /sys/class/sensors/ssp_sensor/mcu_sleep_test
+    chown system radio /sys/class/sensors/ssp_sensor/ori_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/mag_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/shake_cam
+
+# Sensorhub IIO
+    chown system radio /sys/class/sensors/ssp_sensor/accel_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/rot_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/game_rot_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/step_det_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/gyro_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/uncalib_gyro_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/mag_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/uncal_mag_poll_delay
+    chown system radio /sys/class/sensors/ssp_sensor/ssp_flush
+    chmod 0600 /dev/batch_io
+    chown system system /dev/batch_io
 # MPL IIO
     chown system system /dev/invensense
     chown system system /sys/bus/iio/devices/invensense/buffer/enable
@@ -546,3 +644,10 @@ service mobicore /vendor/bin/mcDriverDaemon -r /vendor/app/FFFFFFFF0000000000000
 
 on property:sys.sf.restart=1
     restart surfaceflinger
+	
+# Sensorhub service
+service sensorhubservice /system/vendor/bin/sensorhubservice
+    class main
+    user system
+    group input
+	seclabel u:r:sensorhubservice:s0	
