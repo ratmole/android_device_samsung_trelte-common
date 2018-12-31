@@ -17,26 +17,6 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# Audio
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    audio.primary.universal5433 \
-    libtinycompress
-
-#PRODUCT_PACKAGES += \
-#	libseirenhw
-
-PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0-impl
-	
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
-    $(LOCAL_PATH)/configs/audio/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/audio/mixer_paths_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_0.xml
-
 # Bluetooth
 PRODUCT_PACKAGES += \
     libbt-vendor
@@ -305,6 +285,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+
+# Inherit products
+-include $(LOCAL_PATH)/product/*.mk
 
 # Copy files
 -include $(LOCAL_PATH)/copy/*.mk
