@@ -1,0 +1,51 @@
+#============= hal_fingerprint_default ==============
+allow hal_fingerprint_default fingerprint_device:chr_file ioctl;
+#allow hal_fingerprint_default system_data_file:dir { add_name create remove_name write };
+#allow hal_fingerprint_default system_data_file:file { create getattr open read rename };
+allow hal_fingerprint_default tee:unix_stream_socket connectto;
+allow hal_fingerprint_default tee_device:chr_file { ioctl open read write };
+
+#============= hal_light_default ==============
+allow hal_light_default sysfs:file { open write };
+
+#============= hal_power_default ==============
+allow hal_power_default sysfs:file { open write };
+
+#============= hal_sensors_default ==============
+allow hal_sensors_default sysfs:file { getattr open read write };
+
+#============= init ==============
+#allow init hal_drm_hwservice:hwservice_manager add;
+allow init hidl_base_hwservice:hwservice_manager add;
+#allow init vendor_file:file execute_no_trans;
+
+#============= installd ==============
+allow installd debugfs:file { open write };
+
+#============= lmkd ==============
+allow lmkd sysfs:file write;
+
+#============= macloader ==============
+allow macloader vendor_file:file entrypoint;
+
+#============= init ==============
+allow init mediadrmserver:binder transfer;
+allow init vendor_file:file execute_no_trans;
+
+#============= hwservicemanager ==============
+allow hwservicemanager unlabeled:file { getattr open read };
+
+#============= macloader ==============
+allow macloader vendor_file:file entrypoint;
+
+#============= mediadrmserver ==============
+allow mediadrmserver init:binder { call transfer };
+
+#============= priv_app ==============
+allow priv_app device:dir open;
+allow priv_app proc_interrupts:file open;
+allow priv_app proc_stat:file { getattr open };
+allow priv_app su_exec:file { open read };
+
+#============= vold ==============
+allow vold system_data_file:file { ioctl open unlink };

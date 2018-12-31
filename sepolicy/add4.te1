@@ -1,0 +1,68 @@
+#============= bootanim ==============
+#allow bootanim debugfs:file { open write };
+
+#============= hal_allocator_default ==============
+#allow hal_allocator_default sysfs:file { open read };
+
+#============= hal_fingerprint_default ==============
+#allow hal_fingerprint_default debugfs:file { open write };
+allow hal_fingerprint_default fingerprint_device:chr_file ioctl;
+#allow hal_fingerprint_default system_data_file:file { create open read rename write };                                                                             link write };
+
+#============= hal_keymaster_default ==============
+#allow hal_keymaster_default debugfs:file { open write };
+
+#============= hal_light_default ==============
+allow hal_light_default sysfs:file open;
+
+#============= hal_sensors_default ==============
+allow hal_sensors_default sysfs:file { getattr open write };
+
+#============= hwservicemanager ==============
+allow hwservicemanager debugfs:file { open write };
+
+#============= init ==============
+allow init debugfs:dir { add_name create write };
+allow init debugfs:file write;
+allow init hal_drm_hwservice:hwservice_manager add;
+allow init hidl_base_hwservice:hwservice_manager add;
+allow init vendor_file:file execute_no_trans;
+
+#============= installd ==============
+allow installd debugfs:file { open write };
+
+#============= macloader ==============
+allow macloader vendor_file:file entrypoint;
+
+#============= system_server ==============
+allow system_server dalvikcache_data_file:file execute;
+
+#============= zygote ==============
+allow zygote debugfs:file { getattr open write };
+
+#============= hal_allocator_default ==============
+allow hal_allocator_default sysfs:file { open read };
+
+#============= hal_fingerprint_default ==============
+allow hal_fingerprint_default debugfs:file { open write };
+allow hal_fingerprint_default fingerprint_device:chr_file ioctl;
+allow hal_fingerprint_default system_data_file:file { create getattr open read rename unlink write };
+
+#============= hal_keymaster_default ==============
+allow hal_keymaster_default debugfs:file { open write };
+
+#============= hal_light_default ==============
+allow hal_light_default sysfs:file { open write };
+
+#============= hal_sensors_default ==============
+allow hal_sensors_default sysfs:file { getattr open write };
+
+#============= hwservicemanager ==============
+#allow hwservicemanager debugfs:file { open write };
+
+#============= rild ==============
+allow rild debugfs:file { open write };
+allow rild default_prop:property_service set;
+
+
+

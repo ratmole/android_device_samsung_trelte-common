@@ -1,0 +1,59 @@
+#============= bootanim ==============
+#allow bootanim debugfs:file { open write };
+
+#============= bootstat ==============
+allow bootstat sysfs:file { getattr open };
+
+#============= hal_wifi_default ==============
+allow hal_wifi_default sysfs:file write;
+
+#============= hwservicemanager ==============
+allow hwservicemanager sysfs:file { getattr open read };
+
+#============= init ==============
+#allow init debugfs:dir { add_name create write };
+#allow init debugfs:file write;
+
+#============= installd ==============
+#allow installd debugfs:file { open write };
+
+#============= logd ==============
+allow logd sysfs:file { getattr open read };
+
+#============= servicemanager ==============
+allow servicemanager sysfs:file { getattr open read };
+
+#============= shell ==============
+allow shell sysfs:file { getattr open read };
+
+#============= tzdatacheck ==============
+allow tzdatacheck sysfs:file { open read };
+
+#============= vdc ==============
+allow vdc sysfs:file { getattr open read };
+
+#============= vndservicemanager ==============
+allow vndservicemanager sysfs:file { getattr open read };
+
+#============= zygote ==============
+#allow zygote debugfs:file getattr;
+
+#============= hal_fingerprint_default ==============
+#allow hal_fingerprint_default debugfs:file { open write };
+#allow hal_fingerprint_default fingerprint_device:chr_file ioctl;
+#allow hal_fingerprint_default system_data_file:dir { add_name create remove_name write };
+#allow hal_fingerprint_default system_data_file:file { create open read rename write };
+#allow hal_fingerprint_default tee:unix_stream_socket connectto;
+
+#============= hal_wifi_default ==============
+allow hal_wifi_default sysfs:file write;
+
+#============= system_server ==============
+allow system_server ion_device:chr_file write;
+
+#============= tee ==============
+allow tee efs_file:file { getattr open };
+allow tee tee_prop:property_service set;
+
+
+
