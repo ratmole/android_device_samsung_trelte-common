@@ -298,4 +298,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # Vendor
-$(call inherit-product, vendor/samsung/gts2-common/gts2-common-vendor.mk)
+$(call inherit-product, vendor/samsung/trelte-common/trelte-common-vendor.mk)
