@@ -1,4 +1,4 @@
-LOCAL_PATH := device/samsung/gts2-common
+LOCAL_PATH := device/samsung/trelte-common
 
 PRODUCT_CHARACTERISTICS := tablet
 
@@ -193,8 +193,8 @@ PRODUCT_PACKAGES += \
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
-    device/samsung/gts2-common/overlay \
-    device/samsung/gts2-common/overlay-lineage
+    device/samsung/trelte-common/overlay \
+    device/samsung/trelte-common/overlay-lineage
 
 # Permissions
 PRODUCT_COPY_FILES += \

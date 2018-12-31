@@ -1,4 +1,4 @@
-LOCAL_PATH := device/samsung/gts2-common
+LOCAL_PATH := device/samsung/trelte-common
 
 ### PLATFORM
 
@@ -58,7 +58,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
-TARGET_KERNEL_SOURCE := kernel/samsung/gts2
+TARGET_KERNEL_SOURCE := kernel/samsung/trelte
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 BOARD_KERNEL_IMAGE_NAME := zImage
 
@@ -130,11 +130,11 @@ TARGET_USES_GRALLOC1_ADAPTER := true
 TARGET_USES_ION := true
 
 # Hidl
-DEVICE_MANIFEST_FILE := device/samsung/gts2-common/configs/manifest.xml
+DEVICE_MANIFEST_FILE := device/samsung/trelte-common/configs/manifest.xml
 			   
 # Hardware
 BOARD_HARDWARE_CLASS += hardware/samsung/lineagehw
-BOARD_HARDWARE_CLASS += device/samsung/gts2-common/lineagehw
+BOARD_HARDWARE_CLASS += device/samsung/trelte-common/lineagehw
 
 # HDMI
 BOARD_USES_NEW_HDMI := true
@@ -175,14 +175,14 @@ TARGET_SYSTEM_PROP += $(LOCAL_PATH)/system.prop
 
 # Properties
 #TARGET_VENDOR_PROP_OVERRIDE := true
-#TARGET_VENDOR_PROP += device/samsung/gts2-common/vendor.prop
+#TARGET_VENDOR_PROP += device/samsung/trelte-common/vendor.prop
 
 # Recovery
 BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/samsung/gts2-common/sepolicy
+BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy
 
 # Sensors
 #TARGET_NO_SENSOR_PERMISSION_CHECK := true
