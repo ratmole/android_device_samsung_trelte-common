@@ -180,7 +180,7 @@ TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
 BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy
 
 # Sensors
-#TARGET_NO_SENSOR_PERMISSION_CHECK := true
+TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
