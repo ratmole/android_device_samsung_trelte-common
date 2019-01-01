@@ -628,7 +628,7 @@ on property:ro.debuggable=1
 
 
 # ARGOSD
-service argos-daemon /system/bin/argosd
+service argos-daemon /system/vendor/bin/argosd
     class main
     user system
     group system radio
