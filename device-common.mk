@@ -30,7 +30,8 @@ PRODUCT_PACKAGES += \
     camera.universal5433 \
     libexynoscamera_shim \
     libcsc \
-    Snap
+    Snap \
+    libsec-ril_shim
 
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-legacy \

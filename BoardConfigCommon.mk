@@ -160,7 +160,8 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libbauthserver.so|libbauthtzcommon_shim.so \
     /system/vendor/lib/libexynoscamera.so|libexynoscamera_shim.so \
-    /system/vendor/bin/gpsd|libsensor_shim.so
+    /system/vendor/bin/gpsd|libsensor_shim.so \
+    /system/lib/libsec-ril.so|libsec-ril_shim.so
 
 # Shims: libui
 TARGET_LD_SHIM_LIBS += \
