@@ -260,7 +260,6 @@ PRODUCT_COPY_FILES += \
 -include $(LOCAL_PATH)/copy/*.mk
 
 # Inherit products
--include $(LOCAL_PATH)/board/*.mk
 -include $(LOCAL_PATH)/product/*.mk
 
 # Vendor
