@@ -61,9 +61,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/trelte
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 BOARD_KERNEL_IMAGE_NAME := zImage
 
-# Inherit board specific defines
--include $(LOCAL_PATH)/board/*.mk
-
 # ADB Legacy Interface
 TARGET_USES_LEGACY_ADB_INTERFACE := true
 
@@ -81,6 +78,10 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_CUSTOM_BT_CONFIG := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+
+# Camera
+BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
 # Charger/Healthd
 WITH_LINEAGE_CHARGER := true
@@ -101,11 +102,20 @@ TARGET_PROVIDES_LIBLIGHT := false
 #WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
 #WITH_DEXPREOPT := false
 
+# FIMG2D
+BOARD_USES_SKIA_FIMGAPI := true
+BOARD_USES_NEON_BLITANTIH := true
+BOARD_USES_FIMGAPI_V4L2 := false
+
 # Fingerprint
 TARGET_SEC_FP_HAL_VARIANT := bauth
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
+
+# (G)SCALER
+BOARD_USES_SCALER := true
+BOARD_USES_DT := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
@@ -115,15 +125,17 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 # Gralloc
 TARGET_USES_GRALLOC1_ADAPTER := true
 
-# ION
-TARGET_USES_ION := true
-
-# Hidl
-DEVICE_MANIFEST_FILE := device/samsung/trelte-common/configs/manifest.xml
-			   
 # Hardware
 BOARD_HARDWARE_CLASS += hardware/samsung/lineagehw
 BOARD_HARDWARE_CLASS += device/samsung/trelte-common/lineagehw
+
+# HDMI
+BOARD_USES_NEW_HDMI := true
+BOARD_USES_GSC_VIDEO := true
+BOARD_USES_CEC := true
+
+# Hidl
+DEVICE_MANIFEST_FILE := device/samsung/trelte-common/configs/manifest.xml
 
 # HWCServices
 BOARD_USES_HWC_SERVICES := true
@@ -132,8 +144,29 @@ SKIP_DISPLAY_BLANK_CTRL := true
 # Include path
 TARGET_SPECIFIC_HEADER_PATH += $(LOCAL_PATH)/include
 
+# ION
+TARGET_USES_ION := true
+
+# ConsumerIR from hardware/samsung
+IR_HAL_SUFFIX := exynos5
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := false
+
+# OpenMAX Video
+BOARD_USE_STOREMETADATA := true
+BOARD_USE_METADATABUFFERTYPE := true
+BOARD_USE_DMA_BUF := true
+BOARD_USE_ANB_OUTBUF_SHARE := true
+BOARD_USE_IMPROVED_BUFFER := true
+BOARD_USE_NON_CACHED_GRAPHICBUFFER := true
+BOARD_USE_GSC_RGB_ENCODER := true
+BOARD_USE_CSC_HW := false
+BOARD_USE_QOS_CTRL := false
+BOARD_USE_S3D_SUPPORT := true
+BOARD_USE_VP8ENC_SUPPORT := true
+BOARD_USE_HEVCDEC_SUPPORT := true
+BOARD_USE_HEVC_HWIP := true
 
 # Power
 TARGET_POWERHAL_VARIANT := samsung
@@ -174,6 +207,9 @@ TARGET_LD_SHIM_LIBS += \
     /system/lib/omx/libOMX.Exynos.VP8.Encoder.so|libui_shim.so \
     /system/lib/omx/libOMX.Exynos.VP9.Decoder.so|libui_shim.so \
     /system/lib/omx/libOMX.Exynos.WMV.Decoder.so|libui_shim.so
+
+# Video scaling issue workaround
+TARGET_OMX_LEGACY_RESCALING := true
 
 # Virtual Display
 BOARD_USES_VIRTUAL_DISPLAY := true
