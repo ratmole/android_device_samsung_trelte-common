@@ -67,6 +67,9 @@ TARGET_USES_LEGACY_ADB_INTERFACE := true
 # Ant+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
+# Audio HAL variant
+TARGET_AUDIOHAL_VARIANT := samsungnote4
+
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
@@ -181,6 +184,10 @@ TARGET_SYSTEM_PROP += $(LOCAL_PATH)/system.prop
 # Recovery
 BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
+
+# Samsung Seiren audio
+BOARD_USE_ALP_AUDIO := true
+BOARD_USE_SEIREN_AUDIO := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy

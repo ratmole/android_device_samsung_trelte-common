@@ -303,6 +303,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     textclassifier.smartselection.bundle1
 
+# Tinyalsa utilities
+PRODUCT_PACKAGES += \
+    tinyplay \
+    tinycap \
+    tinymix \
+    tinypcminfo
+
 # USB HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-impl \
