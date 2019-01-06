@@ -239,16 +239,22 @@ PRODUCT_PACKAGES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.0 \
-    android.hardware.radio.deprecated@1.0 \
+    libxml2 \
+    libprotobuf-cpp-full \
     libsecril-client \
     libsecril-client-sap \
+    modemloader\
     rild \
     libreference-ril \
     libril \
-    modemloader \
-    libxml2 \
-    libprotobuf-cpp-full
+    android.hardware.radio@1.0 \
+    android.hardware.radio.deprecated@1.0
+
+# IPv6
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes \
+    libebtc
 
 # Ramdisk
 PRODUCT_PACKAGES += \
