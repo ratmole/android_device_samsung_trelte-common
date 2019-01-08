@@ -102,7 +102,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fingerprintd \
     fingerprint.exynos5 \
-    validityService
+    ValidityService
 
 # Flat device tree for boot image
 PRODUCT_PACKAGES += \
