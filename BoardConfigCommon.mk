@@ -112,7 +112,10 @@ BOARD_USES_NEON_BLITANTIH := true
 BOARD_USES_FIMGAPI_V4L2 := false
 
 # Fingerprint
-TARGET_SEC_FP_HAL_VARIANT := bauth
+# TARGET_SEC_FP_HAL_VARIANT := bauth
+
+# ValidityService
+BOARD_USES_VALIDITY := true
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true

@@ -96,9 +96,13 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-impl \
-    android.hardware.biometrics.fingerprint@2.1-service \
+    android.hardware.biometrics.fingerprint@2.1-service
+	
+# Fingerprint
+PRODUCT_PACKAGES += \
+    fingerprintd \
     fingerprint.exynos5 \
-    libbauthtzcommon_shim
+    validityService
 
 # Flat device tree for boot image
 PRODUCT_PACKAGES += \
