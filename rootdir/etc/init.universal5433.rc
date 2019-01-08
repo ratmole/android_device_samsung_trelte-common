@@ -102,6 +102,12 @@ on post-fs-data
     rm /data/system/gps/beidou_started
     rm /data/system/gps/smd_started
     rm /data/system/gps/sv_cno.info
+	
+    # Vibrations
+    chown system system /sys/devices/virtual/timed_output/vibrator/enable
+    chown system system /sys/devices/virtual/timed_output/vibrator/intensity
+    # Default to 80% vibrator strength
+    write /sys/devices/virtual/timed_output/vibrator/intensity 8000	
 
 on boot
 
