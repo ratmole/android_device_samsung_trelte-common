@@ -9,3 +9,7 @@ allow tee { efs_file prov_efs_file }:file r_file_perms;
 
 # sys.mobicore.enable
 set_prop(tee, tee_prop) 
+
+# vcsFPService
+allow tee vcs_data_file:dir create_dir_perms;
+allow tee vcs_data_file:file create_file_perms;
