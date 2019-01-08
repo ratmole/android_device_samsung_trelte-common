@@ -19,7 +19,7 @@ TARGET_SLSI_VARIANT := cm
 TARGET_SOC := exynos5433
 
 # big.LITTLE load balancing
-#ENABLE_CPUSETS := true
+ENABLE_CPUSETS := true
 
 TARGET_BOOTLOADER_BOARD_NAME := universal5433
 
