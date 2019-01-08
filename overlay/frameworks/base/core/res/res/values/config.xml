@@ -332,7 +332,7 @@
     <integer name="config_longPressOnHomeBehavior">3</integer>
 	
     <!-- Disable lockscreen rotation by default -->
-    <bool name="config_enableLockScreenRotation">true</bool>
+    <bool name="config_enableLockScreenRotation">false</bool>
 
     <!-- If enabled, capacitive keys will only light up when pressed.
     Otherwise, the buttons will light up whenever the user interacts with the device -->
