@@ -484,6 +484,8 @@ on fs
     mkdir /data/validity 0770 system system
 # Fingerprint_sensor
     chown system radio /sys/class/fingerprint/fingerprint/type_check
+    chown system radio /sys/class/fingerprint/fingerprint/name
+    chown system radio /sys/class/fingerprint/fingerprint/vend
 # Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
     chown system radio /sys/class/sensors/accelerometer_sensor/calibration
@@ -743,7 +745,6 @@ service vcsFPService /vendor/bin/vcsFPService
     class late_start
     user system
     group system
-	seclabel u:r:vcsFPService:s0
 
 service fingerprintd /system/bin/fingerprintd
     class late_start
