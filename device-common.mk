@@ -149,11 +149,17 @@ PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-impl \
     consumerir.universal5433 
 
-# Keylayout
+# Keylayouts
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/idc/ft5x06_ts.idc:/system/usr/idc/ft5x06_ts.idc \
-    $(COMMON_PATH)/configs/keylayout/gpio-keys.kl:/system/usr/keylayout/gpio-keys.kl \
-    $(COMMON_PATH)/configs/keylayout/sec_touchkey.kl:/system/usr/keylayout/sec_touchkey.kl
+    $(COMMON_PATH)/configs/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
+    $(COMMON_PATH)/configs/keylayout/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl \
+    $(COMMON_PATH)/configs/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_e-pen.kl \
+    $(COMMON_PATH)/configs/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(COMMON_PATH)/configs/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
+    $(COMMON_PATH)/configs/keylayout/Vendor_04e8_Product_7021.kl:system/usr/keylayout/Vendor_04e8_Product_7021.kl \
+    $(COMMON_PATH)/configs/idc/Synaptics_HID_TouchPad.idc:system/usr/idc/Synaptics_HID_TouchPad.idc \
+    $(COMMON_PATH)/configs/idc/sec_e-pen.idc:system/usr/idc/sec_e-pen.idc \
+    $(COMMON_PATH)/configs/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
 # Keymaster
 PRODUCT_PACKAGES += \
