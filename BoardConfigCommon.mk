@@ -26,6 +26,9 @@ TARGET_BOOTLOADER_BOARD_NAME := universal5433
 # Binder
 TARGET_USES_64_BIT_BINDER := true
 
+# Inherit board specific defines
+-include $(LOCAL_PATH)/board/*.mk
+
 ### FILESYSTEM
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 14680064
