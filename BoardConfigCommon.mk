@@ -30,6 +30,9 @@ TARGET_USES_64_BIT_BINDER := true
 # Inherit board specific defines
 -include $(LOCAL_PATH)/board/*.mk
 
+# Allow Invalid PThreads
+TARGET_ALLOWS_INVALID_PTHREAD := true
+
 ### FILESYSTEM
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 14680064
