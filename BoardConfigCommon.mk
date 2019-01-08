@@ -4,6 +4,7 @@ LOCAL_PATH := device/samsung/trelte-common
 
 TARGET_ARCH := arm
 TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 BOARD_VENDOR := samsung
 
