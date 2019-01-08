@@ -692,7 +692,7 @@ on charger
     setprop sys.usb.config charging
 
 # SENSOR FRAMEWORK : starts fingerprintService
-service vcsFPService /system/bin/vcsFPService
+service vcsFPService /vendor/bin/vcsFPService
     class late_start
     user system
     group system
