@@ -71,6 +71,9 @@ public class Fingerprint extends FingerprintCore {
     private native int jniSetPassword(String userId, byte abyte0[], byte newPwdHash[]); // What is abyte0 means?
     private native int jniVerifyPassword(String userId, byte pwdHash[]);
 
+	private native int jniGetEnrolledTemplateIds(String userId, Object info);
+	private native int jniGetEnrolledTemplateIdByFinger(String userId, int fingerIndex, Object info);
+
     public Fingerprint(Context ctx) {
         super(ctx);
     }
