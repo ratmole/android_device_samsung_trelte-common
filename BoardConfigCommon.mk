@@ -177,7 +177,7 @@ IR_HAL_SUFFIX := exynos5
 TARGET_PROVIDES_LIBLIGHT := false
 
 # OpenMAX Video
-BOARD_USE_STOREMETADATA := true
+# BOARD_USE_STOREMETADATA := true  -- not working due to invalid buffer handles
 BOARD_USE_METADATABUFFERTYPE := true
 BOARD_USE_DMA_BUF := true
 BOARD_USE_ANB_OUTBUF_SHARE := true
