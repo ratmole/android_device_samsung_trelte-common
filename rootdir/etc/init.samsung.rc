@@ -170,8 +170,6 @@ on init
     setprop logd.kernel false
 
 on post-fs
-    # mobicore
-    setprop sys.mobicoredaemon.enable stopped
     
     #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
     chown system log /proc/reset_summary
@@ -636,11 +634,10 @@ on boot
     write /proc/sys/net/core/wmem_max  2097152
 
 # MobiCore startup
-service mobicore /vendor/bin/mcDriverDaemon -r /vendor/app/FFFFFFFF000000000000000000000001.drbin -r /vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
-    class core
+service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+    class main
     user system
     group system
-    disabled
 
 on property:sys.sf.restart=1
     restart surfaceflinger
