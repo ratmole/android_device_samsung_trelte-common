@@ -137,6 +137,9 @@ EXTENDED_FONT_FOOTPRINT := true
 BOARD_USES_SCALER := true
 BOARD_USES_DT := true
 
+# Mixer
+BOARD_USE_BGRA_8888 := true
+
 # Graphics
 USE_OPENGL_RENDERER := true
 
