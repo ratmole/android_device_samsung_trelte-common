@@ -297,11 +297,11 @@ PRODUCT_PACKAGES += \
     textclassifier.smartselection.bundle1
 
 # Tinyalsa utilities
-PRODUCT_PACKAGES += \
-    tinyplay \
-    tinycap \
-    tinymix \
-    tinypcminfo
+#PRODUCT_PACKAGES += \
+#    tinyplay \
+#    tinycap \
+#    tinymix \
+#    tinypcminfo
 
 # USB HAL
 PRODUCT_PACKAGES += \
