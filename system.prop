@@ -30,7 +30,7 @@ media.stagefright.less-secure=1
 
 # Network
 # Define default initial receive window size in segments.
-#net.tcp.default_init_rwnd=60
+net.tcp.default_init_rwnd=60
 
 # WiFi
 wifi.interface=wlan0
