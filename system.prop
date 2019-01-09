@@ -28,6 +28,9 @@ lockscreen.rot_override=true
 media.stagefright.legacyencoder=1
 media.stagefright.less-secure=1
 
+# Camera
+camera2.portability.force_api=1
+
 # Network
 # Define default initial receive window size in segments.
 net.tcp.default_init_rwnd=60
