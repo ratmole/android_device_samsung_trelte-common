@@ -25,8 +25,8 @@ ro.sf.lcd_density=560
 lockscreen.rot_override=true
 
 # Media
-#media.stagefright.legacyencoder=1
-#media.stagefright.less-secure=1
+media.stagefright.legacyencoder=1
+media.stagefright.less-secure=1
 
 # Network
 # Define default initial receive window size in segments.
