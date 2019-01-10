@@ -56,9 +56,6 @@ TARGET_EXFAT_DRIVER := sdfat
 
 LZMA_RAMDISK_TARGETS := boot,recovery
 
-# Permissive
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
-
 ### KERNEL
 
 BOARD_KERNEL_BASE := 0x10000000
@@ -213,7 +210,7 @@ BOARD_USE_ALP_AUDIO := true
 BOARD_USE_SEIREN_AUDIO := true
 
 # SELinux
-#BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy
+BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy
 
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
