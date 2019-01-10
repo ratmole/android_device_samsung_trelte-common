@@ -51,8 +51,7 @@ PRODUCT_PACKAGES += \
     camera.device@1.0-impl-legacy \
     libexynoscamera_shim \
     libcsc \
-    Snap \
-    libsec-ril_shim
+    Snap
 
 # Charger
 PRODUCT_PACKAGES += \
