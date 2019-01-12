@@ -78,7 +78,8 @@ PRODUCT_PACKAGES += \
 #   libOMX.Exynos.WMA.Encoder
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/init/android.hardware.media.omx@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.media.omx@1.0-service.rc
+    $(COMMON_PATH)/configs/init/android.hardware.media.omx@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.media.omx@1.0-service.rc \
+    $(COMMON_PATH)/configs/init/rild.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/rild.rc	
 
 # Configstore
 PRODUCT_PACKAGES += \
