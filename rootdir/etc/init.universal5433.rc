@@ -658,9 +658,6 @@ on fs
     chown system system /dev/ttySAC2
     chown system system /sys/class/sec/ledcover/cover_pwr
 
-# ARGOSD network_throughput
-    chown system system /dev/network_throughput
-
 # MHL
     chown system radio /sys/class/mhl/test_v2
     chown system radio /sys/class/mhl/connection
@@ -674,13 +671,6 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/test_case
     chmod 0666 /sys/class/mhl/test_v2
     chmod 0666 /sys/class/mhl/connection
-
-
-# ARGOSD
-service argos-daemon /system/vendor/bin/argosd
-    class main
-    user system
-    group system radio
 	
 # ITP mode enter/exit
 on property:ril.cbd.modechan=0
