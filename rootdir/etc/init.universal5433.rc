@@ -723,38 +723,7 @@ on property:ril.cbd.modechan=0
     restart ril-daemon
 
 on property:ril.cbd.modechan=2
-    restart ril-daemon
-
-#STE mmd
-service mmd /system/bin/mmd
-    class main
-    user system
-    group system radio net_admin inet sdcard_rw sdcard_r media_rw
-
-#STE dip
-service dip /system/bin/debug_interface_proxy -c /data/dipconfs
-    class main
-    user system
-    group system radio net_admin inet sdcard_rw sdcard_r media_rw
-
-# IPSec for VOLTE
-service ipsec-daemon /system/bin/IPSecService
-    class main
-    socket ipsec_socket stream 660 system system
-    user system
-    group system net_raw inet net_admin
-    
-# SecEDS
-#service TvoutService_C /system/bin/bintvoutservice
-#    class main
-#    user system
-#    group graphics
-#on property:ro.SecEDS.enable=false
-#    stop TvoutService_C    
-    
-# Reactivation lock
-	service reactived /system/bin/reactived
-	class late_start    
+    restart ril-daemon	
 
 # permission for CHARGING
     chown system radio /sys/class/power_supply/battery/batt_discharging_check
