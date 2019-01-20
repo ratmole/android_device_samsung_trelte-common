@@ -1,0 +1,63 @@
+From cc6d1c1c78521624b51bb39cf001931bab5e8c1c Mon Sep 17 00:00:00 2001
+From: bonuzzz <bonuzzz@gmail.com>
+Date: Mon, 23 Apr 2018 20:32:12 +0300
+Subject: [PATCH] Revert "Do error check on wifi initialize in HAL"
+
+This reverts commit 583e62fe04ed3e4a56da9d6a561e1b4c980d6dc6.
+---
+ bcmdhd/wifi_hal/wifi_hal.cpp | 29 ++++++-----------------------
+ 1 file changed, 6 insertions(+), 23 deletions(-)
+
+diff --git a/hardware/broadcom/wlan/bcmdhd/wifi_hal/wifi_hal.cpp b/hardware/broadcom/wlan/bcmdhd/wifi_hal/wifi_hal.cpp
+index db6f87c..a168c8d 100644
+--- a/hardware/broadcom/wlan/bcmdhd/wifi_hal/wifi_hal.cpp
++++ b/hardware/broadcom/wlan/bcmdhd/wifi_hal/wifi_hal.cpp
+@@ -261,29 +261,15 @@ wifi_error wifi_initialize(wifi_handle *handle)
+ 
+     *handle = (wifi_handle) info;
+ 
+-    if (wifi_init_interfaces(*handle) != WIFI_SUCCESS) {
+-        ALOGE("No wifi interface found");
+-        nl_socket_free(cmd_sock);
+-        nl_socket_free(event_sock);
+-        pthread_mutex_destroy(&info->cb_lock);
+-        free(info);
+-        return WIFI_ERROR_NOT_AVAILABLE;
+-    }
+-
+-    if ((wifi_add_membership(*handle, "scan") < 0) ||
+-        (wifi_add_membership(*handle, "mlme")  < 0) ||
+-        (wifi_add_membership(*handle, "regulatory") < 0) ||
+-        (wifi_add_membership(*handle, "vendor") < 0)) {
+-        ALOGE("Add membership failed");
+-        nl_socket_free(cmd_sock);
+-        nl_socket_free(event_sock);
+-        pthread_mutex_destroy(&info->cb_lock);
+-        free(info);
+-        return WIFI_ERROR_NOT_AVAILABLE;
+-    }
++    wifi_add_membership(*handle, "scan");
++    wifi_add_membership(*handle, "mlme");
++    wifi_add_membership(*handle, "regulatory");
++    wifi_add_membership(*handle, "vendor");
+ 
++    wifi_init_interfaces(*handle);
+     // ALOGI("Found %d interfaces", info->num_interfaces);
+ 
++
+     ALOGI("Initialized Wifi HAL Successfully; vendor cmd = %d", NL80211_CMD_VENDOR);
+     return WIFI_SUCCESS;
+ }
+@@ -1157,9 +1143,6 @@ wifi_error wifi_init_interfaces(wifi_handle handle)
+ 
+     closedir(d);
+ 
+-    if (n == 0)
+-        return WIFI_ERROR_NOT_AVAILABLE;
+-
+     d = opendir("/sys/class/net");
+     if (d == 0)
+         return WIFI_ERROR_UNKNOWN;
+-- 
+2.17.0
+
