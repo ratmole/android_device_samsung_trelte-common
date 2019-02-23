@@ -247,20 +247,6 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     power.universal5433
 
-# Radio
-PRODUCT_PACKAGES += \
-    libxml2 \
-    libprotobuf-cpp-full \
-    libsecril-client \
-    libsecril-client-sap \
-    modemloader\
-    rild \
-    libreference-ril \
-    libril \
-    android.hardware.radio@1.0 \
-    android.hardware.radio.deprecated@1.0 \
-    Stk
-
 # IPv6
 PRODUCT_PACKAGES += \
     ebtables \
