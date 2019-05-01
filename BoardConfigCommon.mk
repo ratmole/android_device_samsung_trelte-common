@@ -210,7 +210,8 @@ BOARD_USE_ALP_AUDIO := true
 BOARD_USE_SEIREN_AUDIO := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy
+#BOARD_SEPOLICY_DIRS += device/samsung/trelte-common/sepolicy
+SELINUX_IGNORE_NEVERALLOWS := true
 
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
