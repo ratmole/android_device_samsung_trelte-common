@@ -12,7 +12,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp,adb
     
 # Inherit products
--include $(COMMON_PATH)/product/*.mk    
+-include $(COMMON_PATH)/product/*.mk
+
+# Common inherits
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
 
 # ANT+
 PRODUCT_PACKAGES += \
