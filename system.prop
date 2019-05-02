@@ -41,6 +41,7 @@ persist.media.treble_omx=false
 
 # sdcardfs
 ro.sys.sdcardfs=false
+ro.sys.sdcardfs.legacy-mounting=1
 
 # Boot directly from charger mode
 ro.enable_boot_charger_mode=1
