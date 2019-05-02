@@ -35,6 +35,7 @@ net.tcp.default_init_rwnd=60
 
 # WiFi
 wifi.interface=wlan0
+wifi.direct.non-concurrent=true
 
 #Treble
 persist.media.treble_omx=false
