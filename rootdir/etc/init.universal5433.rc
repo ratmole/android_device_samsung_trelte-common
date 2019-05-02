@@ -28,6 +28,8 @@ on init
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
 
+    export EXTERNAL_STORAGE /sdcard
+
     # map "real" external storages paths also in same way. backwards compatibility.
     symlink /storage/extSdCard /mnt/extSdCard
     symlink /storage/UsbDriveA /mnt/UsbDriveA
