@@ -70,6 +70,12 @@ PRODUCT_PACKAGES += \
     libExynosOMX_shim \
     libui_shim
 
+# OMX
+PRODUCT_PACKAGES += \
+    libcsc \
+    libOMX.Exynos.WMV.Decoder \
+    libOMX.Exynos.MPEG2.Decoder
+
 #PRODUCT_PACKAGES += \
 #   libOMX.Exynos.AAC.Decoder \
 #   libOMX.Exynos.AVC.Decoder \
