@@ -88,21 +88,23 @@ on post-fs-data
     chown system radio /sys/class/camera/ois/ois_rawdata
     chown system radio /sys/class/camera/ois/oisfw
     chown system radio /sys/class/camera/ois/ois_diff
-
+	
 # GPS
-    chown root system /dev/ttySAC0
-    chmod 0660 /dev/ttySAC0
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value
     chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
+    exec -- /system/bin/rm -fr /data/system/gps
     mkdir /data/system 0771 system system
     chown system system /data/system
     mkdir /data/system/gps 0771 system system
     chown system system /data/system/gps
+    symlink /data/system/gps /data/gps
+    symlink /data/system/gps /data/system/gps/gps
     rm /data/system/gps/gps_started
     rm /data/system/gps/glonass_started
     rm /data/system/gps/beidou_started
     rm /data/system/gps/smd_started
     rm /data/system/gps/sv_cno.info
+
 	
     # Vibrations
     chown system system /sys/devices/virtual/timed_output/vibrator/enable
