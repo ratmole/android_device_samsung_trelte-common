@@ -76,7 +76,7 @@ TARGET_USES_LEGACY_ADB_INTERFACE := true
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio HAL variant
-TARGET_AUDIOHAL_VARIANT := samsungnote4
+TARGET_AUDIOHAL_VARIANT := samsung
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
