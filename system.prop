@@ -3,6 +3,7 @@ af.fast_track_multiplier=1
 audio_hal.disable_two_mic=true
 ro.ril.samsung_nextgen_modem=1
 ro.ril.needs_videocall_field=0
+audio_hal.force_voice_config=wide
 
 # Bluetooth
 ro.bt.bdaddr_path="/efs/bluetooth/bt_addr"
