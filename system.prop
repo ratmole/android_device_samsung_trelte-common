@@ -22,9 +22,6 @@ ro.bq.gpu_to_cpu_unsupported=1
 ro.opengles.version=196610
 ro.sf.lcd_density=560
 
-# Lockscreen rotate
-lockscreen.rot_override=true
-
 # Media
 media.stagefright.legacyencoder=1
 media.stagefright.less-secure=1
