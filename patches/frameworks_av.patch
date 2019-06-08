@@ -1,0 +1,298 @@
+From 6db15d21bdb873d48800bf1a2ab9e1f4a9e2c574 Mon Sep 17 00:00:00 2001
+From: bonuzzz <bonuzzz@gmail.com>
+Date: Sat, 22 Dec 2018 04:01:12 +0100
+Subject: [PATCH] Add support for YUV420SP_NV21 color format
+
+Revert "OMXNodeInstance: Allow dynamic native handle for shared mem buffer"
+
+This reverts commit 691c91706b88c4f578acf4b69e7ad4747cdb61dd.
+
+Revert "Allow kPortModeDynamicANWBuffer for kBufferTypeANWBuffer in useBuffer"
+
+This reverts commit 9a3c5983e36028e295e25043ffeed63169b01431.
+
+Revert "OMXNodeInstance: Allow dynamic native handle mode for input buffers"
+
+This reverts commit 11523c83a3ec5b2d2af68a9d6bc1bf63b3a1ae03.
+
+Revert "omx: restrict useBuffer according to buffer type and port mode"
+
+This reverts commit 8aacd3487ef6c45354929a5fee7accb68c20c2a4.
+
+Add support for BGRA_8888 color format
+---
+ camera/CameraParameters.cpp                  |  2 +
+ camera/include/camera/CameraParameters.h     |  2 +
+ media/libstagefright/CameraSource.cpp        | 10 +++
+ media/libstagefright/omx/Android.bp          |  3 -
+ media/libstagefright/omx/OMXNodeInstance.cpp | 83 +++++---------------
+ 5 files changed, 34 insertions(+), 66 deletions(-)
+
+diff --git a/frameworks/av/camera/CameraParameters.cpp b/frameworks/av/camera/CameraParameters.cpp
+index de8ac2ffc..60461bc1f 100644
+--- a/frameworks/av/camera/CameraParameters.cpp
++++ b/frameworks/av/camera/CameraParameters.cpp
+@@ -154,8 +154,10 @@ const char CameraParameters::PIXEL_FORMAT_YUV422SP[] = "yuv422sp";
+ const char CameraParameters::PIXEL_FORMAT_YUV420SP[] = "yuv420sp";
+ const char CameraParameters::PIXEL_FORMAT_YUV422I[] = "yuv422i-yuyv";
+ const char CameraParameters::PIXEL_FORMAT_YUV420P[]  = "yuv420p";
++const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "nv21";
+ const char CameraParameters::PIXEL_FORMAT_RGB565[] = "rgb565";
+ const char CameraParameters::PIXEL_FORMAT_RGBA8888[] = "rgba8888";
++const char CameraParameters::PIXEL_FORMAT_BGRA8888[] = "bgra8888";
+ const char CameraParameters::PIXEL_FORMAT_JPEG[] = "jpeg";
+ const char CameraParameters::PIXEL_FORMAT_BAYER_RGGB[] = "bayer-rggb";
+ const char CameraParameters::PIXEL_FORMAT_ANDROID_OPAQUE[] = "android-opaque";
+diff --git a/frameworks/av/camera/include/camera/CameraParameters.h b/frameworks/av/camera/include/camera/CameraParameters.h
+index ba33ffe63..529f57a55 100644
+--- a/frameworks/av/camera/include/camera/CameraParameters.h
++++ b/frameworks/av/camera/include/camera/CameraParameters.h
+@@ -615,10 +615,12 @@ public:
+     // and KEY_VIDEO_FRAME_FORMAT
+     static const char PIXEL_FORMAT_YUV422SP[];
+     static const char PIXEL_FORMAT_YUV420SP[]; // NV21
++    static const char PIXEL_FORMAT_YUV420SP_NV21[]; // SEC_NV21
+     static const char PIXEL_FORMAT_YUV422I[]; // YUY2
+     static const char PIXEL_FORMAT_YUV420P[]; // YV12
+     static const char PIXEL_FORMAT_RGB565[];
+     static const char PIXEL_FORMAT_RGBA8888[];
++    static const char PIXEL_FORMAT_BGRA8888[]; // BGRA_8888
+     static const char PIXEL_FORMAT_JPEG[];
+     // Raw bayer format used for images, which is 10 bit precision samples
+     // stored in 16 bit words. The filter pattern is RGGB.
+diff --git a/frameworks/av/media/libstagefright/CameraSource.cpp b/frameworks/av/media/libstagefright/CameraSource.cpp
+index 399199e38..ee9483a87 100644
+--- a/frameworks/av/media/libstagefright/CameraSource.cpp
++++ b/frameworks/av/media/libstagefright/CameraSource.cpp
+@@ -146,6 +146,16 @@ static int32_t getColorFormat(const char* colorFormat) {
+         return OMX_COLOR_FormatYUV420SemiPlanar;
+     }
+ 
++    if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_YUV420SP_NV21)) {
++        static const int OMX_SEC_COLOR_FormatNV21Linear = 0x7F000011;
++        return OMX_SEC_COLOR_FormatNV21Linear;
++    }
++
++    if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_BGRA8888)) {
++        static const int OMX_SEC_COLOR_FormatBGRA8888Linear = 0x7f000789;
++        return OMX_SEC_COLOR_FormatBGRA8888Linear;
++    }
++
+     if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_YUV422I)) {
+         return OMX_COLOR_FormatYCbYCr;
+     }
+diff --git a/frameworks/av/media/libstagefright/omx/Android.bp b/frameworks/av/media/libstagefright/omx/Android.bp
+index 1a00fb950..2c4668fba 100644
+--- a/frameworks/av/media/libstagefright/omx/Android.bp
++++ b/frameworks/av/media/libstagefright/omx/Android.bp
+@@ -81,9 +81,6 @@ cc_library_shared {
+ 
+     product_variables: {
+         lineage: {
+-            needs_legacy_camera_hal1_dyn_native_handle: {
+-                cppflags: ["-DNEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE"],
+-            },
+             uses_qcom_bsp_legacy: {
+                 cppflags: ["-DQCOM_BSP_LEGACY"],
+             },
+diff --git a/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp b/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
+index 04866d5ba..fa7a81e1d 100644
+--- a/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
++++ b/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
+@@ -689,7 +689,6 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+ 
+     CLOG_CONFIG(setPortMode, "%s(%d), port %d", asString(mode), mode, portIndex);
+ 
+-    status_t err = OK;
+     switch (mode) {
+     case IOMX::kPortModeDynamicANWBuffer:
+     {
+@@ -698,19 +697,17 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+                 CLOG_INTERNAL(setPortMode, "Legacy adaptive experiment: "
+                         "not setting port mode to %s(%d) on output",
+                         asString(mode), mode);
+-                err = StatusFromOMXError(OMX_ErrorUnsupportedIndex);
+-                break;
++                return StatusFromOMXError(OMX_ErrorUnsupportedIndex);
+             }
+ 
+-            err = enableNativeBuffers_l(
++            status_t err = enableNativeBuffers_l(
+                     portIndex, OMX_TRUE /*graphic*/, OMX_TRUE);
+             if (err != OK) {
+-                break;
++                return err;
+             }
+         }
+         (void)enableNativeBuffers_l(portIndex, OMX_FALSE /*graphic*/, OMX_FALSE);
+-        err = storeMetaDataInBuffers_l(portIndex, OMX_TRUE, NULL);
+-        break;
++        return storeMetaDataInBuffers_l(portIndex, OMX_TRUE, NULL);
+     }
+ 
+     case IOMX::kPortModeDynamicNativeHandle:
+@@ -718,15 +715,13 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+         if (portIndex != kPortIndexInput) {
+             CLOG_ERROR(setPortMode, BAD_VALUE,
+                     "%s(%d) mode is only supported on input port", asString(mode), mode);
+-            err = BAD_VALUE;
+-            break;
++            return BAD_VALUE;
+         }
+         (void)enableNativeBuffers_l(portIndex, OMX_TRUE /*graphic*/, OMX_FALSE);
+         (void)enableNativeBuffers_l(portIndex, OMX_FALSE /*graphic*/, OMX_FALSE);
+ 
+         MetadataBufferType metaType = kMetadataBufferTypeNativeHandleSource;
+-        err = storeMetaDataInBuffers_l(portIndex, OMX_TRUE, &metaType);
+-        break;
++        return storeMetaDataInBuffers_l(portIndex, OMX_TRUE, &metaType);
+     }
+ 
+     case IOMX::kPortModePresetSecureBuffer:
+@@ -734,8 +729,7 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+         // Allow on both input and output.
+         (void)storeMetaDataInBuffers_l(portIndex, OMX_FALSE, NULL);
+         (void)enableNativeBuffers_l(portIndex, OMX_TRUE /*graphic*/, OMX_FALSE);
+-        err = enableNativeBuffers_l(portIndex, OMX_FALSE /*graphic*/, OMX_TRUE);
+-        break;
++        return enableNativeBuffers_l(portIndex, OMX_FALSE /*graphic*/, OMX_TRUE);
+     }
+ 
+     case IOMX::kPortModePresetANWBuffer:
+@@ -743,8 +737,7 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+         if (portIndex != kPortIndexOutput) {
+             CLOG_ERROR(setPortMode, BAD_VALUE,
+                     "%s(%d) mode is only supported on output port", asString(mode), mode);
+-            err = BAD_VALUE;
+-            break;
++            return BAD_VALUE;
+         }
+ 
+         // Check if we're simulating legacy mode with metadata mode,
+@@ -753,7 +746,7 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+             if (storeMetaDataInBuffers_l(portIndex, OMX_TRUE, NULL) == OK) {
+                 CLOG_INTERNAL(setPortMode, "Legacy adaptive experiment: "
+                         "metdata mode enabled successfully");
+-                break;
++                return OK;
+             }
+ 
+             CLOG_INTERNAL(setPortMode, "Legacy adaptive experiment: "
+@@ -764,15 +757,15 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+ 
+         // Disable secure buffer and enable graphic buffer
+         (void)enableNativeBuffers_l(portIndex, OMX_FALSE /*graphic*/, OMX_FALSE);
+-        err = enableNativeBuffers_l(portIndex, OMX_TRUE /*graphic*/, OMX_TRUE);
++        status_t err = enableNativeBuffers_l(portIndex, OMX_TRUE /*graphic*/, OMX_TRUE);
+         if (err != OK) {
+-            break;
++            return err;
+         }
+ 
+         // Not running experiment, or metadata is not supported.
+         // Disable metadata mode and use legacy mode.
+         (void)storeMetaDataInBuffers_l(portIndex, OMX_FALSE, NULL);
+-        break;
++        return OK;
+     }
+ 
+     case IOMX::kPortModePresetByteBuffer:
+@@ -781,19 +774,15 @@ status_t OMXNodeInstance::setPortMode(OMX_U32 portIndex, IOMX::PortMode mode) {
+         (void)enableNativeBuffers_l(portIndex, OMX_TRUE /*graphic*/, OMX_FALSE);
+         (void)enableNativeBuffers_l(portIndex, OMX_FALSE /*graphic*/, OMX_FALSE);
+         (void)storeMetaDataInBuffers_l(portIndex, OMX_FALSE, NULL);
+-        break;
++        return OK;
+     }
+ 
+     default:
+-        CLOG_ERROR(setPortMode, BAD_VALUE, "invalid port mode %d", mode);
+-        err = BAD_VALUE;
+         break;
+     }
+ 
+-    if (err == OK) {
+-        mPortMode[portIndex] = mode;
+-    }
+-    return err;
++    CLOG_ERROR(setPortMode, BAD_VALUE, "invalid port mode %d", mode);
++    return BAD_VALUE;
+ }
+ 
+ status_t OMXNodeInstance::enableNativeBuffers_l(
+@@ -1071,55 +1060,28 @@ status_t OMXNodeInstance::useBuffer(
+     }
+ 
+     switch (omxBuffer.mBufferType) {
+-        case OMXBuffer::kBufferTypePreset: {
+-            if (mPortMode[portIndex] != IOMX::kPortModeDynamicANWBuffer
+-                    && mPortMode[portIndex] != IOMX::kPortModeDynamicNativeHandle) {
+-                break;
+-            }
++        case OMXBuffer::kBufferTypePreset:
+             return useBuffer_l(portIndex, NULL, NULL, buffer);
+-        }
+ 
+-        case OMXBuffer::kBufferTypeSharedMem: {
+-            if (mPortMode[portIndex] != IOMX::kPortModePresetByteBuffer
+-#ifdef NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE
+-                    && mPortMode[portIndex] != IOMX::kPortModeDynamicNativeHandle
+-#endif
+-                    && mPortMode[portIndex] != IOMX::kPortModeDynamicANWBuffer) {
+-                break;
+-            }
++        case OMXBuffer::kBufferTypeSharedMem:
+             return useBuffer_l(portIndex, omxBuffer.mMem, NULL, buffer);
+-        }
+ 
+-        case OMXBuffer::kBufferTypeANWBuffer: {
+-            if (mPortMode[portIndex] != IOMX::kPortModePresetANWBuffer
+-                    && mPortMode[portIndex] != IOMX::kPortModeDynamicANWBuffer) {
+-                break;
+-            }
++        case OMXBuffer::kBufferTypeANWBuffer:
+             return useGraphicBuffer_l(portIndex, omxBuffer.mGraphicBuffer, buffer);
+-        }
+ 
+         case OMXBuffer::kBufferTypeHidlMemory: {
+-                if (mPortMode[portIndex] != IOMX::kPortModePresetByteBuffer
+-                        && mPortMode[portIndex] != IOMX::kPortModeDynamicANWBuffer
+-                        && mPortMode[portIndex] != IOMX::kPortModeDynamicNativeHandle) {
+-                    break;
+-                }
+                 sp<IHidlMemory> hidlMemory = mapMemory(omxBuffer.mHidlMemory);
+                 if (hidlMemory == nullptr) {
+                     ALOGE("OMXNodeInstance useBuffer() failed to map memory");
+                     return NO_MEMORY;
+                 }
+                 return useBuffer_l(portIndex, NULL, hidlMemory, buffer);
+-        }
++            }
+         default:
+-            return BAD_VALUE;
+             break;
+     }
+ 
+-    ALOGE("b/77486542 : bufferType = %d vs. portMode = %d",
+-          omxBuffer.mBufferType, mPortMode[portIndex]);
+-    android_errorWriteLog(0x534e4554, "77486542");
+-    return INVALID_OPERATION;
++    return BAD_VALUE;
+ }
+ 
+ status_t OMXNodeInstance::useBuffer_l(
+@@ -1555,11 +1517,6 @@ status_t OMXNodeInstance::allocateSecureBuffer(
+         android_errorWriteLog(0x534e4554, "35467458");
+         return BAD_VALUE;
+     }
+-    if (mPortMode[portIndex] != IOMX::kPortModePresetSecureBuffer) {
+-        ALOGE("b/77486542");
+-        android_errorWriteLog(0x534e4554, "77486542");
+-        return INVALID_OPERATION;
+-    }
+     BufferMeta *buffer_meta = new BufferMeta(portIndex);
+ 
+     OMX_BUFFERHEADERTYPE *header;
+-- 
+2.17.1
+

@@ -1,0 +1,62 @@
+From e53027e003b127378a411273c5ad3e29f222db88 Mon Sep 17 00:00:00 2001
+From: Dominggoes Isakh <drjisakh@gmail.com>
+Date: Fri, 24 Nov 2017 15:29:08 +0100
+Subject: [PATCH] libc: Allow devices the use of invalid pthread via board
+ flag.
+
+  * Use the TARGET_ALLOWS_INVALID_PTHREAD := true
+    to prevent softboots with the error
+    "invalid pthread_t 0x.. passed to libc" due to legacy
+     proprietary libraries.
+
+Change-Id: Ie1876e7cc65d9502a986ee1eb400cb9a34cacf29
+
+libc: allow invalid pthread by default
+
+Change-Id: I2dc456a66b2dca999b64f55aa93d14a186b2314e
+
+libc: replace undeclared log
+---
+ libc/Android.bp                  | 2 +-
+ libc/bionic/pthread_internal.cpp | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/bionic/libc/Android.bp b/bionic/libc/Android.bp
+index c339b0451..f74919f93 100644
+--- a/bionic/libc/Android.bp
++++ b/bionic/libc/Android.bp
+@@ -1572,8 +1572,8 @@ cc_library_static {
+         "bionic/pthread_sigmask.cpp",
+         "bionic/pthread_spinlock.cpp",
+     ],
++    cppflags: ["-Wold-style-cast", "-DALLOWS_INVALID_PTHREAD"],
+ 
+-    cppflags: ["-Wold-style-cast"],
+     include_dirs: ["bionic/libstdc++/include"],
+     name: "libc_pthread",
+ }
+diff --git a/bionic/libc/bionic/pthread_internal.cpp b/bionic/libc/bionic/pthread_internal.cpp
+index 829194cc7..6c0282009 100644
+--- a/bionic/libc/bionic/pthread_internal.cpp
++++ b/bionic/libc/bionic/pthread_internal.cpp
+@@ -115,6 +115,9 @@ pthread_internal_t* __pthread_internal_find(pthread_t thread_id) {
+ 
+   // Historically we'd return null, but
+   if (bionic_get_application_target_sdk_version() >= __ANDROID_API_O__) {
++#ifdef ALLOWS_INVALID_PTHREAD
++      async_safe_format_log(ANDROID_LOG_WARN, "libc", "invalid pthread_t %p passed to libc", thread);
++#else
+     if (thread == nullptr) {
+       // This seems to be a common mistake, and it's relatively harmless because
+       // there will never be a valid thread at address 0, whereas other invalid
+@@ -125,6 +128,7 @@ pthread_internal_t* __pthread_internal_find(pthread_t thread_id) {
+     } else {
+       async_safe_fatal("invalid pthread_t %p passed to libc", thread);
+     }
++#endif
+   }
+   return nullptr;
+ }
+-- 
+2.17.1
+
