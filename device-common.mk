@@ -25,10 +25,6 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# APN Definitions - override incomplete/broken lineageos version with Google master version
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/telephony/apns-conf.xml:system/etc/apns-conf.xml
-
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
