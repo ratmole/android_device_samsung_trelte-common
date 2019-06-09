@@ -1,3 +1,8 @@
+on early-init
+    # Ensure some kernel boot defaults are set
+    write /proc/sys/net/ipv6/conf/all/optimistic_dad 1
+    write /proc/sys/net/ipv6/conf/all/use_optimistic 1
+
 on init
     # scheduler tunables
     # Disable auto-scaling of scheduler tunables with hotplug. The tunables
@@ -177,6 +182,30 @@ on post-fs
     chown system log /proc/sec_log
 
 on post-fs-data
+    # sec_efs_file
+    mkdir /efs/sec_efs 0775 radio system
+    
+    # Latin SSMS feature
+    mkdir /efs/SMS 0775 radio system
+
+    # PMK permission
+    mkdir /efs/mc 0770 radio system
+    chown radio system /efs/mc
+    chmod 0770 /efs/mc
+    chown radio system /efs/mc/mc.dat
+    chmod 0640 /efs/mc/mc.dat
+
+    # hatp
+    mkdir /data/misc/radio/hatp 0755 radio system
+
+    # Samsung Pay
+    mkdir /efs/pfw_data 0760 spay spay
+
+    # NFC
+    mkdir /data/nfc 0700 nfc nfc
+    mkdir /data/nfc/param 0700 nfc nfc
+    mkdir /data/bcmnfc 0700 nfc nfc
+    mkdir /data/bcmnfc/param 0700 nfc nfc
     # h2k
     mkdir /efs/cpk 0771 radio system
     chmod 0644 /efs/redata.bin
@@ -221,6 +250,9 @@ on post-fs-data
     chown root root /system/lib/drm
     chmod 0775 /system/lib/drm
 
+    restorecon -R /efs
+# ]
+
 on boot
     # permissions for bluetooth.
     mkdir /efs/bluetooth 0775 radio system
@@ -238,7 +270,52 @@ on boot
     # MTP permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system mtp /dev/usb_mtp_gadget
-    mkdir /dev/socket/mtp 0770 system mtp	
+    mkdir /dev/socket/mtp 0770 system mtp
+    
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/multi_enter_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/multi_enter_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/multi_enter_time
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/multi_enter_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/multi_exit_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/multi_exit_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/multi_exit_time
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/multi_exit_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/single_enter_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/single_enter_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/single_enter_time
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/single_enter_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/single_exit_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/single_exit_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/single_exit_time
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/single_exit_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/mode
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/mode
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/enforced_mode
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/enforced_mode
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/param_index
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/param_index
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/cpu_util
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/cpu_util
+
+    # Change permission for dvfshelper
+    chown radio system /sys/power/cpufreq_table
+    chmod 0664 /sys/power/cpufreq_table
+    chown radio system /sys/power/cpufreq_min_limit
+    chmod 0664 /sys/power/cpufreq_min_limit
+    chown radio system /sys/power/cpufreq_max_limit
+    chmod 0664 /sys/power/cpufreq_max_limit
+
+    # NFC_NXP
+    chmod 0660 /dev/pn547
+    chown nfc nfc /dev/pn547
+
+    # NFC_BROADCOM
+    chmod 0600 /dev/bcm2079x
+    chown nfc nfc /dev/bcm2079x
+
+    # NFC_SLSI
+    chmod 0660 /dev/sec-nfc
+    chown nfc nfc /dev/sec-nfc
 
     # NPS permission
     mkdir /dev/socket/nps 0770 system system
@@ -249,7 +326,6 @@ on boot
     # Switch Device
     chown system radio /sys/class/sec/switch/usb_sel
     chown system radio /sys/class/sec/switch/uart_sel
-    chown system radio /sys/class/sec/switch/uart_en
     chown system radio /sys/class/sec/switch/otg_test
     chown system radio /sys/class/sec/switch/apo_factory
 

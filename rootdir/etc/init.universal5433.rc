@@ -88,24 +88,18 @@ on post-fs-data
     chown system radio /sys/class/camera/ois/ois_rawdata
     chown system radio /sys/class/camera/ois/oisfw
     chown system radio /sys/class/camera/ois/ois_diff
-	
-# GPS
-    chown root system /sys/class/sec/gps/GPS_PWR_EN/value
-    chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
-    exec -- /system/bin/rm -fr /data/system/gps
-    mkdir /data/system 0771 system system
-    chown system system /data/system
-    mkdir /data/system/gps 0771 system system
-    chown system system /data/system/gps
-    symlink /data/system/gps /data/gps
-    symlink /data/system/gps /data/system/gps/gps
-    rm /data/system/gps/gps_started
-    rm /data/system/gps/glonass_started
-    rm /data/system/gps/beidou_started
-    rm /data/system/gps/smd_started
-    rm /data/system/gps/sv_cno.info
 
-	
+    #Private Mode
+    mkdir /mnt/shell/privatemode 0700 system system
+    mkdir /storage/Private 0000 system system
+    mkdir /data/privatemode 0770 system system
+    chown system system /data/privatemode
+    restorecon /data/privatemode
+
+# Audio
+    mkdir /data/firmware 0770 media system
+    chown media system /data/firmware
+
     # Vibrations
     chown system system /sys/devices/virtual/timed_output/vibrator/enable
     chown system system /sys/devices/virtual/timed_output/vibrator/intensity
@@ -141,11 +135,16 @@ on boot
     mkdir /efs/FactoryApp 0775 system system
 
     # SSWAP
-    write /proc/sys/vm/swappiness 130
+    write /proc/sys/vm/swappiness 190
 
     # For kernel lock in BT/WiFi race condtion
     chmod 0600 /dev/btlock
     chown bluetooth bluetooth /dev/btlock
+
+# Assign TCP buffer thresholds to be ceiling value of technology maximums
+# Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max  2097152
+    write /proc/sys/net/core/wmem_max  2097152
 
 	# DualWave
     chown system system /sys/kernel/DualWave/sound/DUALWAVE_CONFIG
@@ -155,6 +154,10 @@ on boot
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
+
+# tui
+    chmod 0660 /dev/t-base-tui
+    chown system system /dev/t-base-tui
 
 # Switch Device
     chown system radio /sys/class/sec/switch/uart_en
@@ -289,6 +292,15 @@ on boot
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
+
+    # Wait for up to 5 seconds - the CPU big cluster is slow to come online
+    # Permission settings below fail to take effect unless we wait for
+    # the CPU to wake up as sysfs entries are not created
+    # In reality, the cluster should be online as the screen is on during the boot
+    # process and therefore the call will return immediately
+
+    wait /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 
+
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
     chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack
@@ -350,8 +362,17 @@ on boot
     chown system system /sys/devices/system/cpu/cpu6/online
     chown system system /sys/devices/system/cpu/cpu7/online
 
+    # GPIO DVS
+    chown radio system /sys/class/secgpio_check/secgpio_check_all/gpioinit_check
+    chown radio system /sys/class/secgpio_check/secgpio_check_all/gpiosleep_check
+    chown radio system /sys/class/secgpio_check/secgpio_check_all/checked_sleepGPIO
+
     # CPU Idle
     chown system radio /sys/module/cpuidle_exynos5433/parameters/enable_mask
+
+    # RTC logging daemon
+    chmod 0770 /system/bin/rtc_log.sh
+    chown system system /system/bin/rtc_log.sh
 
 # MIF
     write /sys/module/modem_modemctl_device_m74xx/parameters/cp_watchdog_enable 1
@@ -362,11 +383,6 @@ on boot
 on fs
     mount_all /fstab.universal5433
     setprop ro.crypto.fuse_sdcard true
-
-# MIF
-    chown radio radio /sys/devices/virtual/misc/multipdp/waketime
-    chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
-    chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
 
 # MTP device permission
     chmod 0660 /dev/usb_mtp_gadget
@@ -441,14 +457,35 @@ on fs
     chown radio system /sys/class/sec/sec_key/wakeup_keys
     write /sys/class/sec/sec_key/wakeup_keys 116,172
 
+# GPS
+    chown root system /sys/class/sec/gps/GPS_PWR_EN/value
+    chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
+    exec -- /system/bin/rm -fr /data/system/gps
+    mkdir /data/system 0771 system system
+    chown system system /data/system
+    mkdir /data/system/gps 0771 system system
+    chown system system /data/system/gps
+    symlink /data/system/gps /data/gps
+    symlink /data/system/gps /data/system/gps/gps
+
 # Audio (Earjack)
     chown system radio /sys/class/audio/earjack/select_jack
     chown system radio /sys/class/audio/earjack/key_state
     chown system radio /sys/class/audio/earjack/state
-    chown system radio /sys/class/audio/earjack/mic_adc
     chown system radio /sys/class/dsm/max98504/dsm_log
-    mkdir /data/firmware 0770 media system
-    chown media system /data/firmware
+
+# Permissions for System LSI NFC
+# NFC : Permissions for NFC
+    chmod 0660 /dev/sec-nfc
+# NFC : change owner
+    chown nfc nfc /dev/sec-nfc
+
+# MOBEAM
+    chown system radio /sys/class/sec/sec_barcode_emul/vendor
+    chown system radio /sys/class/sec/sec_barcode_emul/name
+    chown system radio /sys/class/sec/sec_barcode_emul/barcode_send
+    chown system radio /sys/class/sec/sec_barcode_emul/barcode_led_status
+    chown system radio /sys/class/sec/sec_barcode_emul/barcode_ver_check
 
 # SENSORS
 # Fingerprint
@@ -629,6 +666,9 @@ on fs
     chmod 0660 /dev/ttySAC2
     chown system system /dev/ttySAC2
     chown system system /sys/class/sec/ledcover/cover_pwr
+
+# ARGOSD network_throughput
+    chown system system /dev/network_throughput
 
 # MHL
     chown system radio /sys/class/mhl/test_v2
