@@ -65,6 +65,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
     private int mEnrollRepeatCount = 0;
     private int mActiveGid = 0;
     private boolean mIsNeedIdentify = false;
+    private boolean mIsScreenOn = false;
     private int mIdentifyImage = 0;
 
     Fingerprint fp = new Fingerprint(this, this);
@@ -183,7 +184,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                                 fingerIndex = data[2];
                                 mLastEnrollFingerindex = fingerIndex;
                                 mEnrollBad = false;
-                                mEnrollRepeatCount = 8;
+                                mEnrollRepeatCount = 10; //default 8
                                 fp.verifyPassword(userId, pwdhash);
                                 ret = fp.enroll(userId, "", fingerIndex, Fingerprint.VCS_ENROLL_MODE_DEFAULT);
                                 break;
@@ -281,6 +282,12 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                      EnrollCaptureStatus data_status = (EnrollCaptureStatus)event.eventData;
                      if (mEnrollBad) mEnrollBad = false;
                      else mEnrollRepeatCount = mEnrollRepeatCount - 1;
+
+                     // prevent negative value
+                     if (mEnrollRepeatCount < 0) {
+                         mEnrollRepeatCount = 1;
+                     }
+
                      if (mEnrollRepeatCount != 0) {
                          str = CB_ENROLL + ":" + mLastEnrollFingerindex + ":" + mEnrollRepeatCount;
                      }
@@ -332,6 +339,13 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                               }
                               break;
                          case VcsEvents.VCS_RESULT_OPERATION_CANCELED:
+                                mIdresult = null;
+                                mIsIdentify = true;
+                                if(mIsScreenOn){
+                                    fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
+                                    fp.identify("User_" + mActiveGid);
+                                    str = CB_ACQUIRED + ":" + 0; //  FINGERPRINT_ACQUIRED_GOOD
+                                }
                               break;
                          default:
                               str = CB_ERROR + ":" + 2; //FINGERPRINT_ERROR_UNABLE_TO_PROCESS
@@ -358,6 +372,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
 
     /** Our Keyguard will not call identify when turn on screen, so we need call it. */
     public void onScreenOn() {
+        mIsScreenOn = true;
         if (mIsNeedIdentify) {
             mIsNeedIdentify = false;
             fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
@@ -368,6 +383,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
     }
 
     public void onScreenOff() {
+        mIsScreenOn = false;
         if (mIsIdentify) {
             mIsNeedIdentify = true;
         }
