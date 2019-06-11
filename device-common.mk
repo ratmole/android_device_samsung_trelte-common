@@ -97,8 +97,8 @@ PRODUCT_PACKAGES += \
 #   AdvancedDisplay
 
 # Doze
-PRODUCT_PACKAGES += \
-	TrelteDoze
+#PRODUCT_PACKAGES += \
+#	TrelteDoze
 
 # DRM
 PRODUCT_PACKAGES += \
