@@ -65,7 +65,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
-TARGET_KERNEL_SOURCE := kernel/samsung/trelte
+TARGET_KERNEL_SOURCE := kernel/samsung/exynos5433
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 BOARD_KERNEL_IMAGE_NAME := zImage
 
