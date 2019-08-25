@@ -48,6 +48,12 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor
 
+# Bluetooth workaround:
+# The new CAF code defaults to MCT HAL, but we
+# need the old H4 HAL for our Broadcom WiFi.
+PRODUCT_PROPERTY_OVERRIDES += \
+	qcom.bluetooth.soc=rome
+
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-legacy \
