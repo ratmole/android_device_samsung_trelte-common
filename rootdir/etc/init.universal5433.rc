@@ -12,6 +12,16 @@ on early-init
     write /proc/sys/vm/page-cluster 0
 	
 on init
+
+    # RIL <-> audioserver comm
+    chmod 0644 /proc/cmdline
+
+    mkdir /efs 0771 radio system
+    symlink /dev/block/platform/15540000.dwmmc0/by-name/RADIO /dev/mbin0
+    restorecon /dev/mbin0
+    symlink  /sys/devices/10f24000.mipi-lli /dev/mipi-lli
+    write /sys/module/link_device_lli/parameters/pm_enable 0
+
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/media_rw/extSdCard 0700 media_rw media_rw
     mkdir /mnt/media_rw/UsbDriveA 0700 media_rw media_rw
@@ -25,17 +35,13 @@ on init
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
+    # CPUSETS permission
+    chmod 0660 /dev/cpuctl
     # Support legacy paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
-    symlink /sdcard1 /storage/sdcard1
-    symlink /sdcard1 /mnt/extSdCard
-    symlink /sdcard1 /mnt/sdcard1
-    symlink /sdcard1 /external_sd
-    symlink /storage/usbdisk /mnt/usbdisk	
+    symlink /storage/usbdisk /mnt/usbdisk
 
     export EXTERNAL_STORAGE /sdcard
-	export SECONDARY_STORAGE /storage/extSdCard
 
     # map "real" external storages paths also in same way. backwards compatibility.
     symlink /storage/extSdCard /mnt/extSdCard
@@ -72,11 +78,19 @@ on init
     chown system radio /dev/socket/msockets
 
 on post-fs-data
+    mkdir /data/media 0770 media_rw media_rw
 
     # Remove dalvik files that cause modem issues
     rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.art
     rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.vdex
     rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.oat
+
+    # Remove symlinks to avoid issues with migrate after nandroid restores
+    # Will be recreated at end of boot
+    rmdir /data/data/com.android.providers.telephony/databases
+    rmdir /data/data/com.android.providers.telephony/shared_prefs
+    rm /data/data/com.android.providers.telephony/databases
+    rm /data/data/com.android.providers.telephony/shared_prefs
 
     mkdir /data/media 0770 media_rw media_rw
 
@@ -501,7 +515,10 @@ on late-fs
     chown system radio /sys/class/audio/earjack/select_jack
     chown system radio /sys/class/audio/earjack/key_state
     chown system radio /sys/class/audio/earjack/state
+    chown system radio /sys/class/audio/earjack/mic_adc
     chown system radio /sys/class/dsm/max98504/dsm_log
+    mkdir /data/firmware 0770 media system
+    chown media system /data/firmware
 
 # Permissions for System LSI NFC
 # NFC : Permissions for NFC
@@ -730,6 +747,10 @@ on property:sys.boot_completed=1
     write /proc/sys/vm/dirty_background_bytes 15728640
 
 on property:sys.boot_completed=1
+    # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
+
     # Enable ZRAM on boot_complete
     swapon_all /fstab.universal5433
 	
@@ -737,7 +758,7 @@ on property:sys.boot_completed=1
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
     write /sys/module/fiq_debugger/parameters/kgdb_enable 1
-	
+
 # LPM
 on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/15540000.dwmmc0/by-name/SYSTEM /system wait ro
