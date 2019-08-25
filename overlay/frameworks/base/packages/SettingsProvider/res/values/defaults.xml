@@ -19,8 +19,9 @@
 <resources>
     <!-- Set the automatic brightness mode on by default -->
     <bool name="def_screen_brightness_automatic_mode">true</bool>
-	
-	<bool name="def_bluetooth_on">false</bool>
+
+    <!-- Set to true to turn on BT by default -->	
+	<bool name="def_bluetooth_on">true</bool>
 	
 	<!-- Default for DTMF tones -->
     <bool name="def_dtmf_tones_enabled">false</bool>
