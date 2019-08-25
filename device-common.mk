@@ -9,7 +9,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.debuggable=1 \
     persist.service.adb.enable=1 \
     persist.service.debuggable=1 \
-    persist.sys.usb.config=mtp,adb
+    persist.sys.usb.config=mtp,adb \
+    ro.lineage.build.vendor_security_patch=2018-03-05 \
+	ro.control_privapp_permissions=disable
     
 # Inherit products
 -include $(COMMON_PATH)/product/*.mk
@@ -305,10 +307,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-impl \
     android.hardware.usb@1.0-service
-
-# Vendor security patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2018-03-05
 
 # Vibrator
 PRODUCT_PACKAGES += \

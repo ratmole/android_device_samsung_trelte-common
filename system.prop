@@ -7,7 +7,6 @@ audio_hal.force_voice_config=wide
 
 # Bluetooth
 ro.bt.bdaddr_path="/efs/bluetooth/bt_addr"
-qcom.bluetooth.soc=rome
 
 # Dalvik/Art
 dalvik.vm.heapstartsize=8m
@@ -53,11 +52,7 @@ persist.adb.notify=0
 persist.service.adb.enable=1 
 persist.service.debuggable=1
 persist.sys.usb.config=mtp,adb
-
-# Common RIL
-ro.telephony.get_imsi_from_sim=true
-ro.ril.force_eri_from_xml=true
-net.tethering.noprovisioning=true
+sys.usb.ffs.aio_compat=1
 
 #
 # HW Composer
@@ -65,4 +60,3 @@ net.tethering.noprovisioning=true
 debug.hwc.force_gpu=1
 debug.hwc.winupdate=0
 persist.sys.ui.hw=false
-debug.hwc.otf=1
