@@ -11,7 +11,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.service.debuggable=1 \
     persist.sys.usb.config=mtp,adb \
     ro.lineage.build.vendor_security_patch=2018-03-05 \
-	ro.control_privapp_permissions=disable
+    ro.product.first_api_level=19
     
 # Inherit products
 -include $(COMMON_PATH)/product/*.mk
@@ -53,6 +53,9 @@ PRODUCT_PACKAGES += \
 # need the old H4 HAL for our Broadcom WiFi.
 PRODUCT_PROPERTY_OVERRIDES += \
 	qcom.bluetooth.soc=rome
+	
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.bt.bdaddr_path="/efs/bluetooth/bt_addr"	
 
 # Camera
 PRODUCT_PACKAGES += \
