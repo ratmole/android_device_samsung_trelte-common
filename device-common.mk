@@ -285,7 +285,8 @@ PRODUCT_PACKAGES += \
     init.universal5433.rc \
     init.universal5433.usb.rc \
     init.samsung.rc \
-    init.wifi.rc 
+    init.wifi.rc \
+    init.power.rc
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
