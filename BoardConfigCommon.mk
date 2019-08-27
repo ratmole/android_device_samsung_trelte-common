@@ -202,7 +202,7 @@ BOARD_USES_SCALER := true
 BOARD_USES_GSC_VIDEO := true
 
 # Power
-TARGET_POWERHAL_VARIANT := samsung
+TARGET_POWERHAL_VARIANT := Trelte
 
 # Properties
 TARGET_SYSTEM_PROP += $(LOCAL_PATH)/system.prop
