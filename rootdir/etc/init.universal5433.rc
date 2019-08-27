@@ -80,20 +80,6 @@ on init
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
 
-    # Remove dalvik files that cause modem issues
-    rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.art
-    rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.vdex
-    rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.oat
-
-    # Remove symlinks to avoid issues with migrate after nandroid restores
-    # Will be recreated at end of boot
-    rmdir /data/data/com.android.providers.telephony/databases
-    rmdir /data/data/com.android.providers.telephony/shared_prefs
-    rm /data/data/com.android.providers.telephony/databases
-    rm /data/data/com.android.providers.telephony/shared_prefs
-
-    mkdir /data/media 0770 media_rw media_rw
-
     setprop vold.post_fs_data_done 1
 
     # Permissions Camera
@@ -729,13 +715,6 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/test_case
     chmod 0666 /sys/class/mhl/test_v2
     chmod 0666 /sys/class/mhl/connection
-	
-# ITP mode enter/exit
-on property:ril.cbd.modechan=0
-    restart ril-daemon
-
-on property:ril.cbd.modechan=2
-    restart ril-daemon	
 
 # permission for CHARGING
     chown system radio /sys/class/power_supply/battery/batt_discharging_check
@@ -747,10 +726,6 @@ on property:sys.boot_completed=1
     write /proc/sys/vm/dirty_background_bytes 15728640
 
 on property:sys.boot_completed=1
-    # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
-    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
-
     # Enable ZRAM on boot_complete
     swapon_all /fstab.universal5433
 	
