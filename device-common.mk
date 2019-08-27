@@ -20,6 +20,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# APN Definitions - override incomplete/broken lineageos version with Google master version
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/telephony/apns-full-conf.xml:system/etc/apns-conf.xml
+
 
 # ANT+
 PRODUCT_PACKAGES += \
