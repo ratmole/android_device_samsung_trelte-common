@@ -148,9 +148,8 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 # Gralloc
 TARGET_USES_GRALLOC1_ADAPTER := true
 
-# Hardware
-BOARD_HARDWARE_CLASS += hardware/samsung/lineagehw
-BOARD_HARDWARE_CLASS += device/samsung/trelte-common/lineagehw
+# Lineagehw
+JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(DEVICE_PATH)/lineagehw|**/*.java
 
 # HDMI
 BOARD_USES_NEW_HDMI := true
