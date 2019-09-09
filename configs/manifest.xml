@@ -142,7 +142,7 @@
             <name>IConsumerIr</name>
             <instance>default</instance>
         </interface>
-    </hal>	
+    </hal>
     <hal format="hidl">
         <name>android.hardware.media.omx</name>
         <transport>hwbinder</transport>
@@ -211,7 +211,7 @@
             <name>IVibrator</name>
             <instance>default</instance>
         </interface>
-    </hal>	
+    </hal>
     <hal format="hidl">
         <name>android.hardware.wifi</name>
         <transport>hwbinder</transport>
@@ -249,6 +249,7 @@
             <name>IUsbRestrict</name>
             <instance>default</instance>
         </interface>
+    </hal>		
     <hal format="hidl">
         <name>vendor.lineage.touch</name>
         <transport>hwbinder</transport>
@@ -265,5 +266,5 @@
             <name>IStylusMode</name>
             <instance>default</instance>
         </interface>
-    </hal>	
+    </hal>
 </manifest>
