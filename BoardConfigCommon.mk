@@ -148,8 +148,11 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 # Gralloc
 TARGET_USES_GRALLOC1_ADAPTER := true
 
-# Lineagehw
-JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(DEVICE_PATH)/lineagehw|**/*.java
+# Lineage hardware
+ifneq ($(findstring lineage, $(TARGET_PRODUCT)),)
+JAVA_SOURCE_OVERLAYS := \
+    org.lineageos.hardware|$(LOCAL_PATH)/lineagehw|**/*.java
+endif
 
 # HDMI
 BOARD_USES_NEW_HDMI := true
