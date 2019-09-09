@@ -270,7 +270,11 @@ PRODUCT_COPY_FILES += \
 	
 # Trust HAL
 PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service	
+    vendor.lineage.trust@1.0-service
+
+# Touch
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.samsung
 
 # Power
 PRODUCT_PACKAGES += \
