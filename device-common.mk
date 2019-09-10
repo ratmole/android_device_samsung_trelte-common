@@ -74,8 +74,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefrighthw \
     libExynosOMX_Core \
-    libExynosOMX_shim \
-    libui_shim
+    libExynosOMX_shim
 
 # OMX
 PRODUCT_PACKAGES += \
