@@ -73,7 +73,6 @@ PRODUCT_PACKAGES += \
 # Codecs
 PRODUCT_PACKAGES += \
     libstagefrighthw \
-    libExynosOMX_Core \
     libExynosOMX_shim
 
 # OMX
@@ -153,8 +152,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
     libion \
-    libfimg \
-    hwcomposer.exynos5
+    libfimg
 
 # Healthd
 #PRODUCT_PACKAGES += \
@@ -342,3 +340,6 @@ PRODUCT_COPY_FILES += \
 
 # Vendor
 $(call inherit-product, vendor/samsung/trelte-common/trelte-common-vendor.mk)
+
+# BSP
+$(call inherit-product, vendor/samsung/BSP/BSP-vendor.mk)
