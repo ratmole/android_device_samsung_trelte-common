@@ -150,7 +150,7 @@ on boot
     mkdir /efs/FactoryApp 0775 system system
 
     # SSWAP
-    write /proc/sys/vm/swappiness 190
+    write /proc/sys/vm/swappiness 160
 
     # For kernel lock in BT/WiFi race condtion
     chmod 0600 /dev/btlock
@@ -793,4 +793,10 @@ service gpsd /vendor/bin/gpsd -c /vendor/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
+
+service sswap /sbin/sswap -s -f 1536
+    class core
+    user root
+    group root
+    oneshot
 

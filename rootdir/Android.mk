@@ -56,3 +56,11 @@ LOCAL_SRC_FILES		:= etc/init.power.rc
 LOCAL_MODULE_PATH	:= $(TARGET_ROOT_OUT)
 include $(BUILD_PREBUILT)
 
+include $(CLEAR_VARS)
+LOCAL_MODULE		:= sswap
+LOCAL_MODULE_TAGS	:= optional eng
+LOCAL_MODULE_CLASS	:= BOOT
+LOCAL_SRC_FILES		:= sbin/sswap
+LOCAL_MODULE_PATH	:= $(TARGET_ROOT_OUT)/sbin
+include $(BUILD_PREBUILT)
+
