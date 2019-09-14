@@ -152,6 +152,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
     libion \
+    hwcomposer.exynos5 \
     libfimg
 
 # Healthd
@@ -350,5 +351,6 @@ PRODUCT_COPY_FILES += \
 # Vendor
 $(call inherit-product, vendor/samsung/trelte-common/trelte-common-vendor.mk)
 
-# BSP
-$(call inherit-product, vendor/samsung/BSP/BSP-vendor.mk)
+# call Samsung LSI board support package
+$(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
+$(call inherit-product, hardware/samsung_slsi-cm/exynos5433/exynos5433.mk)
