@@ -182,6 +182,10 @@ on post-fs
     chown system log /proc/sec_log
 
 on post-fs-data
+    # avoid USB crash
+	setprop persist.adb.nonblocking_ffs 0
+	setprop ro.adb.nonblocking_ffs 0
+	
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
 
