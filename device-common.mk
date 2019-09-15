@@ -135,7 +135,7 @@ PRODUCT_PACKAGES += \
     ValidityService
 
 # Flat device tree for boot image
-PRODUCT_PACKAGES += \
+RODUCT_HOST_PACKAGES += \
     dtbhtoolExynos
 
 # Gps
