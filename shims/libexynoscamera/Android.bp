@@ -1,0 +1,14 @@
+cc_library_shared {
+    name: "libexynoscamera_shim",
+    proprietary: true,
+	
+    srcs: [
+        "CameraParameters.cpp",
+		"Fence.cpp",
+    ],
+
+    shared_libs: [
+        "liblog",
+    ],
+}
+	
