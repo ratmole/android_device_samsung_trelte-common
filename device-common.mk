@@ -10,7 +10,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.service.adb.enable=1 \
     persist.service.debuggable=1 \
     persist.sys.usb.config=mtp,adb \
-    ro.lineage.build.vendor_security_patch=2018-03-05 \
     ro.product.first_api_level=19
     
 # Inherit products
