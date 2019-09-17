@@ -54,7 +54,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	qcom.bluetooth.soc=rome
 	
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.bt.bdaddr_path="/efs/bluetooth/bt_addr"	
+	ro.bt.bdaddr_path="/efs/bluetooth/bt_addr"
+	
+# Bluetooth
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/bluetooth/bt_vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/bt_vendor.conf	
 
 # Camera
 PRODUCT_PACKAGES += \
