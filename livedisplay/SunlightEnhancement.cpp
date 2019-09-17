@@ -32,7 +32,7 @@ namespace V2_0 {
 namespace implementation {
 
 static constexpr const char *kLuxPath = "/sys/class/mdnie/mdnie/lux";
-static constexpr const char *kMaxLux = "40000";
+// static constexpr const char *kMaxLux = "40000";
 
 // Methods from ::vendor::lineage::livedisplay::V2_0::ISunlightEnhancement follow.
 bool SunlightEnhancement::isSupported() {
