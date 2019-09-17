@@ -310,6 +310,10 @@ PRODUCT_COPY_FILES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl
+	
+# Sensors wrapper
+PRODUCT_PACKAGES += \
+    sensors.universal5433
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
