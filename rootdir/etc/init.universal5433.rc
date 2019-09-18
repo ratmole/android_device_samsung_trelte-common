@@ -405,6 +405,9 @@ on fs
 	
     # Start HW service manager early
     start hwservicemanager
+	
+# Restore the previous batt_capacity_max (if it exists)
+    copy /efs/Battery/prev_batt_capacity_max /sys/class/power_supply/battery/batt_capacity_max	
 
 on late-fs
     # Start services for bootanim
@@ -746,6 +749,10 @@ service cameraserver /system/bin/cameraserver
     user cameraserver
     group media_rw audio camera drmrpc inet shell sdcard_r system
 	
+on shutdown
+    # Fix permissions then store the current batt_capacity_max value in the EFS partition
+    chmod 600 /sys/class/power_supply/battery/batt_capacity_max
+    copy /sys/class/power_supply/battery/batt_capacity_max /efs/Battery/prev_batt_capacity_max	
 	
 # SensorHub (Location Hub)
 service lhd /system/vendor/bin/lhd /system/vendor/etc/lhd.conf
