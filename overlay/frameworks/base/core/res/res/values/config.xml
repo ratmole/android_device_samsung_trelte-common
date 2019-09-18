@@ -337,8 +337,6 @@
         <item>25</item>
     </integer-array>
 
-    <!-- Boolean to enable stk functionality on Samsung phones -->
-    <bool name="config_samsung_stk">true</bool>
     <!-- MMS user agent string -->
     <string name="config_mms_user_agent" translatable="false">note4</string>
 
@@ -507,5 +505,8 @@
 
     <!-- Whether or not swipe up gesture's opt-in setting is available on this device -->
     <bool name="config_swipe_up_gesture_setting_available">true</bool>
+	
+	<!-- Boolean to enable Stylus gestures -->
+	<bool name="config_stylusGestures">true</bool>
 
 </resources>
