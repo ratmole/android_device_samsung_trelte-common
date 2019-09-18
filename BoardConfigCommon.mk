@@ -240,6 +240,19 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
 # Network Routing
 TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true	
 
+# Shims: libui
+TARGET_LD_SHIM_LIBS += \
+    /system/lib/omx/libOMX.Exynos.AVC.Decoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.AVC.Encoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.HEVC.Decoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.HEVC.Encoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.MPEG4.Decoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.MPEG4.Encoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.VP8.Decoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.VP8.Encoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.VP9.Decoder.so|libui_shim.so \
+    /system/lib/omx/libOMX.Exynos.WMV.Decoder.so|libui_shim.so
+
 # Virtual Display
 BOARD_USES_VIRTUAL_DISPLAY := true
 

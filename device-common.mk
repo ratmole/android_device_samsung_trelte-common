@@ -70,8 +70,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-legacy \
     camera.device@1.0-impl-legacy \
     libexynoscamera_shim \
-    libcsc \
-    Camera2
+    Snap
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/camera/external_camera_config.xml:system/vendor/etc/external_camera_config.xml
@@ -84,13 +83,7 @@ PRODUCT_PACKAGES += \
 # Codecs
 PRODUCT_PACKAGES += \
     libstagefrighthw \
-    libExynosOMX_shim
-
-# OMX
-PRODUCT_PACKAGES += \
-    libcsc \
-    libOMX.Exynos.WMV.Decoder \
-    libOMX.Exynos.MPEG2.Decoder
+    libExynosOMX_Core
 
 #PRODUCT_PACKAGES += \
 #   libOMX.Exynos.AAC.Decoder \
@@ -103,6 +96,10 @@ PRODUCT_PACKAGES += \
 #   libOMX.Exynos.VP8.Decoder \
 #   libOMX.Exynos.VP8.Encoder \
 #   libOMX.Exynos.WMA.Encoder
+
+PRODUCT_PACKAGES += \
+    libExynosOMX_shim \
+    libui_shim
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/init/android.hardware.media.omx@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.media.omx@1.0-service.rc
