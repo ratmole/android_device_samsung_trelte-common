@@ -110,7 +110,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 #PRODUCT_PACKAGES += \
-#	TrelteDoze
+	TrelteDoze
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
