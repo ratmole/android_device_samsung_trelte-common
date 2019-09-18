@@ -476,14 +476,24 @@ on late-fs
     chown system system /sys/class/sec/sec_touchkey/input/enabled
 
 # Permissions for epen
+    chmod 0660 /dev/input/event18
+    chmod 0660 /dev/input/event19
+    chown system input /dev/input/event18
+    chown system input /dev/input/event19
+    chmod 0660 /sys/class/input/input18/enabled
+    chown system system /sys/class/input/input18/enabled
     chown system radio /sys/class/sec/sec_epen/epen_firm_update
     chown system radio /sys/class/sec/sec_epen/epen_reset
     chown system radio /sys/class/sec/sec_epen/epen_reset_result
     chown system radio /sys/class/sec/sec_epen/epen_checksum
     chown system radio /sys/class/sec/sec_epen/epen_checksum_result
     chown system radio /sys/class/sec/sec_epen/epen_saving_mode
+    chown system radio /sys/class/sec/sec_epen/epen_connection
+    chown system radio /sys/class/sec/sec_epen/epen_tuning_version
+    chown system radio /sys/class/sec/sec_epen/epen_firm_update_status
+    chown system radio /sys/class/sec/sec_epen/epen_firm_version
+    chown system radio /sys/class/sec/sec_epen/epen_delay_time
     chown system radio /sys/class/sec/sec_epen/boost_level
-    chown system system /sys/class/sec/sec_epen/input/enabled
 
 # Permissions for gpio_keys
     chown radio system /sys/class/sec/sec_key/wakeup_keys
