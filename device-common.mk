@@ -73,6 +73,9 @@ PRODUCT_PACKAGES += \
     libcsc \
     Camera2
 
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/camera/external_camera_config.xml:system/vendor/etc/external_camera_config.xml
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images \
