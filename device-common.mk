@@ -364,5 +364,5 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, vendor/samsung/trelte-common/trelte-common-vendor.mk)
 
 # call Samsung LSI board support package
-#$(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
-#$(call inherit-product, hardware/samsung_slsi-cm/exynos5433/exynos5433.mk)
+$(call inherit-product, hardware/samsung_slsi/exynos5/exynos5.mk)
+$(call inherit-product, hardware/samsung_slsi/exynos5433/exynos5433.mk)
