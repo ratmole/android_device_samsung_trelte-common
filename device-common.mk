@@ -73,7 +73,8 @@ PRODUCT_COPY_FILES += \
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images \
-    lineage_charger_res_images
+    lineage_charger_res_images \
+    charger
 
 # Codecs
 PRODUCT_PACKAGES += \

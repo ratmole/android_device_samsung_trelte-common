@@ -805,7 +805,7 @@ service fingerprintd /system/bin/fingerprintd
 # Charging
 service charger /charger
     class charger
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 	
 # GPS
 service gpsd /vendor/bin/gpsd -c /vendor/etc/gps.xml

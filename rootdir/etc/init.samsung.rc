@@ -740,10 +740,6 @@ on charger
     chmod 0400 /efs/Battery/battery_data.dat
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
 	
-service lpm /vendor/bin/lpm
-    class charger
-    critical
-	
 # Sensorhub service
 service sensorhubservice /system/vendor/bin/sensorhubservice
     class main
