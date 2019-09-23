@@ -44,7 +44,7 @@
             <name>ICameraDevice</name>
             <instance>legacy/0</instance>
         </interface>
-    </hal> 
+    </hal>
     <hal format="hidl">
         <name>android.hardware.camera.provider</name>
         <transport arch="32">passthrough</transport>
@@ -62,7 +62,7 @@
             <name>ISurfaceFlingerConfigs</name>
             <instance>default</instance>
         </interface>
-    </hal>	
+    </hal>
     <hal format="hidl">
         <name>android.hardware.drm</name>
         <transport>hwbinder</transport>
@@ -77,7 +77,7 @@
             <instance>default</instance>
             <instance>widevine</instance>
         </interface>
-    </hal>	
+    </hal>
     <hal format="hidl">
         <name>android.hardware.gatekeeper</name>
         <transport arch="32">passthrough</transport>
@@ -249,7 +249,7 @@
             <name>IUsbRestrict</name>
             <instance>default</instance>
         </interface>
-    </hal>		
+    </hal>
     <hal format="hidl">
         <name>vendor.lineage.touch</name>
         <transport>hwbinder</transport>
@@ -272,9 +272,16 @@
         <transport>hwbinder</transport>
         <version>2.0</version>
         <interface>
+            <name>IDisplayColorCalibration</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
             <name>IDisplayModes</name>
             <instance>default</instance>
         </interface>
-        <fqname>@2.0::IDisplayModes/default</fqname>
+        <interface>
+            <name>ISunlightEnhancement</name>
+            <instance>default</instance>
+        </interface>
     </hal>
 </manifest>
