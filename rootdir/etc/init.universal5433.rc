@@ -663,11 +663,18 @@ on late-fs
     chown system system /dev/batch_io
 
 # Permissions for MDNIE
-    chown system media_rw /sys/class/mdnie/mdnie/mode
-    chown system media_rw /sys/class/mdnie/mdnie/scenario
+    chown system system /sys/class/mdnie/mdnie/mode
+    chmod 0660 /sys/class/mdnie/mdnie/mode
+    chown system system /sys/class/mdnie/mdnie/scenario
+    chmod 0660 /sys/class/mdnie/mdnie/scenario
     chown system system /sys/class/mdnie/mdnie/accessibility
+    chmod 0660 /sys/class/mdnie/mdnie/accessibility
     chown system system /sys/class/mdnie/mdnie/auto_brightness
+    chmod 0660 /sys/class/mdnie/mdnie/auto_brightness
     chown system system /sys/class/mdnie/mdnie/sensorRGB
+    chmod 0660 /sys/class/mdnie/mdnie/sensorRGB
+    chown system system /sys/class/mdnie/mdnie/lux
+    chmod 0660 /sys/class/mdnie/mdnie/lux
 	
 # Default MDNIE mode (cinema)
     write /sys/class/mdnie/mdnie/mode 4	
