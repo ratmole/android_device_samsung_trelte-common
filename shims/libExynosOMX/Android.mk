@@ -48,5 +48,6 @@ LOCAL_MODULE := libExynosOMX_shim
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_VENDOR_MODULE := true
+LOCAL_CFLAGS += -Wno-implicit-function-declaration
 
 include $(BUILD_SHARED_LIBRARY)
