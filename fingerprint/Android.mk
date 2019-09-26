@@ -22,7 +22,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := fingerprint.exynos5
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_SRC_FILES := fingerprint.c
-LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true
 
