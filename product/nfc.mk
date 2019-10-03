@@ -8,20 +8,20 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/nfc/libnfc-sec-hal.conf:system/vendor/etc/libnfc-sec-hal.conf
 
 ## Packages
-PRODUCT_PACKAGES += \
-	libnfc-nci \
-	libnfc_nci_jni \
-	NfcNci \
-	Tag \
-	com.android.nfc_extras \
-	android.hardware.nfc@1.0-impl \
-	android.hardware.nfc@1.0-service
+#PRODUCT_PACKAGES += \
+#	libnfc-nci \
+#	libnfc_nci_jni \
+#	NfcNci \
+#	Tag \
+#	com.android.nfc_extras \
+#	android.hardware.nfc@1.0-impl \
+#	android.hardware.nfc@1.0-service
 
 # Permissions
-PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-	frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-	frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
+#PRODUCT_COPY_FILES += \
+#	frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+#	frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+#	frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
 
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
