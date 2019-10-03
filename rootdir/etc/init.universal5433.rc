@@ -10,7 +10,7 @@ on early-init
     # ZRAM setup
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
-	
+
 on init
 
     # RIL <-> audioserver comm
@@ -64,7 +64,7 @@ on init
 
     symlink /sdcard1 /storage/sdcard1
     symlink /sdcard1 /external_sd
-	
+
     symlink /data/app /factory
 
 
@@ -119,7 +119,7 @@ on post-fs-data
     chown system system /sys/devices/virtual/timed_output/vibrator/enable
     chown system system /sys/devices/virtual/timed_output/vibrator/intensity
     # Default to 80% vibrator strength
-    write /sys/devices/virtual/timed_output/vibrator/intensity 8000	
+    write /sys/devices/virtual/timed_output/vibrator/intensity 8000
 
 on boot
 
@@ -131,7 +131,7 @@ on boot
     write /dev/cpuset/foreground/boost/cpus 4-7
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-3
-	
+
     # Reduce reserved lowmem from ~48MB to ~12MB
     write /proc/sys/vm/lowmem_reserve_ratio "128 128"
 
@@ -314,7 +314,7 @@ on boot
     # In reality, the cluster should be online as the screen is on during the boot
     # process and therefore the call will return immediately
 
-    wait /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 
+    wait /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
 
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
     chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
@@ -394,7 +394,7 @@ on boot
 
     # WLAN
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-	
+
     # ZRAM setup
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
@@ -402,12 +402,12 @@ on boot
 on fs
     mount_all /fstab.universal5433
     setprop ro.crypto.fuse_sdcard true
-	
+
     # Start HW service manager early
     start hwservicemanager
-	
+
 # Restore the previous batt_capacity_max (if it exists)
-    copy /efs/Battery/prev_batt_capacity_max /sys/class/power_supply/battery/batt_capacity_max	
+    copy /efs/Battery/prev_batt_capacity_max /sys/class/power_supply/battery/batt_capacity_max
 
 on late-fs
     # Start services for bootanim
@@ -675,9 +675,9 @@ on late-fs
     chmod 0660 /sys/class/mdnie/mdnie/sensorRGB
     chown system system /sys/class/mdnie/mdnie/lux
     chmod 0660 /sys/class/mdnie/mdnie/lux
-	
+
 # Default MDNIE mode (cinema)
-    write /sys/class/mdnie/mdnie/mode 4	
+    write /sys/class/mdnie/mdnie/mode 4
 
 # Copy DRM Key
     copy /system/app/wv.keys /factory/wv.keys
@@ -743,15 +743,15 @@ on property:ro.debuggable=1
     chown system radio /sys/class/power_supply/battery/batt_discharging_check
     chown system radio /sys/class/power_supply/battery/batt_discharging_check_adc
     chown system radio /sys/class/power_supply/battery/batt_self_discharging_control
-	
+
 on property:sys.boot_completed=1
     write /proc/sys/vm/dirty_bytes 31457280
     write /proc/sys/vm/dirty_background_bytes 15728640
-	
+
     # set minfree to some decent values
     chmod 0666 /sys/module/lowmemorykiller/parameters/minfree
-    write /sys/module/lowmemorykiller/parameters/minfree "14428,21642,43284,72140,100996,108210"	
-	
+    write /sys/module/lowmemorykiller/parameters/minfree "14428,21642,43284,72140,100996,108210"
+
     # Force mali as always_on to avoid waking up lag
     write /sys/devices/14ac0000.mali/power_policy "always_on"
     write /sys/devices/14ac0000.mali/min_clock "160"
@@ -759,7 +759,7 @@ on property:sys.boot_completed=1
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all /fstab.universal5433
-	
+
 # on userdebug and eng builds, enable kgdb on the serial console
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
@@ -770,24 +770,11 @@ on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/15540000.dwmmc0/by-name/SYSTEM /system wait ro
     wait /dev/block/platform/15540000.dwmmc0/by-name/EFS
     mount ext4 /dev/block/platform/15540000.dwmmc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit,errors=panic
-    class_start charger
 
-service cameraserver /system/bin/cameraserver
-    class main
-    user cameraserver
-    group media_rw audio camera drmrpc inet shell sdcard_r system
-	
-on shutdown
-    # Fix permissions then store the current batt_capacity_max value in the EFS partition
-    chmod 600 /sys/class/power_supply/battery/batt_capacity_max
-    copy /sys/class/power_supply/battery/batt_capacity_max /efs/Battery/prev_batt_capacity_max	
-	
-# SensorHub (Location Hub)
-service lhd /system/vendor/bin/lhd /system/vendor/etc/lhd.conf
-    class main
-    user gps
-    group system inet net_raw
-    ioprio be 0
+service charger /charger
+    class charger
+    critical
+    seclabel u:r:charger:s0
 
 on charger
     # Set cpu governor to powersave while in charging mode
@@ -795,6 +782,23 @@ on charger
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor powersave
+
+service cameraserver /system/bin/cameraserver
+    class main
+    user cameraserver
+    group media_rw audio camera drmrpc inet shell sdcard_r system
+
+on shutdown
+    # Fix permissions then store the current batt_capacity_max value in the EFS partition
+    chmod 600 /sys/class/power_supply/battery/batt_capacity_max
+    copy /sys/class/power_supply/battery/batt_capacity_max /efs/Battery/prev_batt_capacity_max
+
+# SensorHub (Location Hub)
+service lhd /system/vendor/bin/lhd /system/vendor/etc/lhd.conf
+    class main
+    user gps
+    group system inet net_raw
+    ioprio be 0
 
     # EHCI runtime enable for LPA
     write /sys/devices/platform/s5p-ehci/power/control auto
@@ -807,21 +811,16 @@ service vcsFPService /vendor/bin/vcsFPService
     class late_start
     user system
     group system
-    
+
 on property:sys.mobicoredaemon.enable=true
     start cs_service
-    write /proc/iccc_ready 1    
+    write /proc/iccc_ready 1
 
 service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
-    group input	
+    group input
 
-# Charging
-service charger /charger
-    class charger
-    seclabel u:r:charger:s0
-	
 # GPS
 service gpsd /vendor/bin/gpsd -c /vendor/etc/gps.xml
     class main
@@ -834,4 +833,3 @@ service sswap /sbin/sswap -s -f 1536
     user root
     group root
     oneshot
-
