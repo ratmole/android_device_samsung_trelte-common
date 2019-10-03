@@ -1,12 +1,5 @@
-<!-- 
-    This is a skeleton device manifest. Notes: 
-    1. If a HAL is supported in both hwbinder and passthrough transport, 
-       only hwbinder is shown.
-    2. It is likely that HALs in passthrough transport does not have
-       <interface> declared; users will have to write them by hand.
-    3. A HAL with lower minor version can be overridden by a HAL with
-       higher minor version if they have the same name and major version.
--->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comments, Legal notices, etc. here -->
 <manifest version="1.0" type="device">
     <hal format="hidl">
         <name>android.hardware.audio</name>
@@ -76,7 +69,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.gnss</name>
-        <transport>hwbinder</transport>
+        <transport arch="32">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>IGnss</name>
