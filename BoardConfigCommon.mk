@@ -101,15 +101,8 @@ BOARD_USE_SAMSUNG_CAMERAFORMAT_NV21 := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
 # Charger/Healthd
-WITH_LINEAGE_CHARGER := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGER_SHOW_PERCENTAGE := true
-RED_LED_PATH := "/sys/class/leds/led_r/brightness"
-GREEN_LED_PATH := "/sys/class/leds/led_g/brightness"
-BLUE_LED_PATH := "/sys/class/leds/led_b/brightness"
 CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
-BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 
 # LED
 RED_LED_PATH := "/sys/class/leds/led_r/brightness"
@@ -238,13 +231,13 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libexynoscamera.so|libexynoscamera_shim.so \
     /system/vendor/bin/gpsd|libshim_gpsd.so
-	
+
 # Legacy BLOB Support
 TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
     /system/vendor/bin/hw/rild=27
-	
+
 # Network Routing
-TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true	
+TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
 
 # Shims: libui
 TARGET_LD_SHIM_LIBS += \
@@ -285,4 +278,3 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf \
 	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/vendor/etc/wifi/wpa_supplicant_overlay.conf \
 	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/vendor/etc/wifi/p2p_supplicant_overlay.conf
-

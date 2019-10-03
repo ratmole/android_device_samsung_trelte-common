@@ -11,7 +11,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.service.debuggable=1 \
     persist.sys.usb.config=mtp,adb \
     ro.product.first_api_level=19
-    
+
 # Inherit products
 -include $(COMMON_PATH)/product/*.mk
 
@@ -56,7 +56,7 @@ PRODUCT_PACKAGES += \
 # need the old H4 HAL for our Broadcom WiFi.
 PRODUCT_PROPERTY_OVERRIDES += \
 	qcom.bluetooth.soc=rome
-	
+
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.bt.bdaddr_path="/efs/bluetooth/bt_addr"
 
@@ -69,12 +69,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/camera/external_camera_config.xml:system/vendor/etc/external_camera_config.xml
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    lineage_charger_res_images \
-    charger
 
 # Codecs
 PRODUCT_PACKAGES += \
@@ -126,7 +120,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-impl \
     android.hardware.biometrics.fingerprint@2.1-service
-	
+
 # Fingerprint
 PRODUCT_PACKAGES += \
     fingerprint.exynos5 \
@@ -162,19 +156,19 @@ PRODUCT_PACKAGES += \
     libfimg
 
 # Healthd
-#PRODUCT_PACKAGES += \
-#    android.hardware.health@1.0-impl \
-#    android.hardware.health@1.0-service
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-impl \
+    android.hardware.health@2.0-service
 
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.manager@1.0
 
-# IR 
+# IR
 PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-impl \
-    consumerir.universal5433 
+    consumerir.universal5433
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -271,7 +265,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/permissions/privapp-permissions-com.validity.fingerprint.xml:system/etc/permissions/privapp-permissions-com.validity.fingerprint.xml \
     $(COMMON_PATH)/configs/permissions/com.samsung.permission.HRM_EXT.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.HRM_EXT.xml \
     $(COMMON_PATH)/configs/permissions/com.samsung.permission.SSENSOR.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.SSENSOR.xml
-	
+
 # Trust HAL
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
@@ -320,7 +314,7 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
-	
+
 # Sensors wrapper
 PRODUCT_PACKAGES += \
     sensors.universal5433
