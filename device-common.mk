@@ -138,10 +138,9 @@ PRODUCT_PACKAGES += \
 
 # Gps
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl.s2 \
-    android.hardware.gnss@1.0-service \
+    android.hardware.gnss@1.0-impl \
     gps.default \
-	libshim_gpsd
+    libshim_gpsd
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/gps/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
