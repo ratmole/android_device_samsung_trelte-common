@@ -78,9 +78,6 @@ sys.usb.ffs.aio_compat=1
 # Bluetooth
 persist.bt.enableAptXHD=true
 
-#
 # HW Composer
-#
-debug.hwc.force_gpu=1
 debug.hwc.winupdate=0
-persist.sys.ui.hw=false
+debug.sf.latch_unsignaled=1
