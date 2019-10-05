@@ -69,9 +69,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/exynos5433
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 BOARD_KERNEL_IMAGE_NAME := zImage
 
-# ADB Legacy Interface
-TARGET_USES_LEGACY_ADB_INTERFACE := true
-
 # Ant+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
