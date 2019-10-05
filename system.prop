@@ -63,14 +63,13 @@ persist.media.treble_omx=false
 
 # sdcardfs
 ro.sys.sdcardfs=1
-ro.sys.sdcardfs.legacy-mounting=1
 
 # Boot directly from charger mode
 ro.enable_boot_charger_mode=1
 
 # Enable ADB Debugging By Default & Disable USB Debugging Popup
 persist.adb.notify=0
-persist.service.adb.enable=1 
+persist.service.adb.enable=1
 persist.service.debuggable=1
 persist.sys.usb.config=mtp,adb
 sys.usb.ffs.aio_compat=1
