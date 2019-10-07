@@ -93,7 +93,8 @@ PRODUCT_PACKAGES += \
     libui_shim
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/init/android.hardware.media.omx@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.media.omx@1.0-service.rc
+    $(COMMON_PATH)/configs/init/android.hardware.media.omx@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.media.omx@1.0-service.rc \
+    $(COMMON_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc
 
 # Configstore
 PRODUCT_PACKAGES += \
