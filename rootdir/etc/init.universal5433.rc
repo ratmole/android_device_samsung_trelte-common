@@ -762,9 +762,6 @@ on property:ro.debuggable=1
 
 # LPM
 on property:ro.bootmode=charger
-    mount ext4 /dev/block/platform/15540000.dwmmc0/by-name/SYSTEM /system wait ro
-    wait /dev/block/platform/15540000.dwmmc0/by-name/EFS
-    mount ext4 /dev/block/platform/15540000.dwmmc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit,errors=panic
     class_start charger
 
 service charger /charger
