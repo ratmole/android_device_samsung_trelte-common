@@ -793,10 +793,10 @@ service lhd /system/vendor/bin/lhd /system/vendor/etc/lhd.conf
     ioprio be 0
 
     # EHCI runtime enable for LPA
-    write /sys/devices/platform/s5p-ehci/power/control auto
+    # write /sys/devices/platform/s5p-ehci/power/control auto
 
     # Do not set any USB mode while charging
-    setprop sys.usb.config charging
+    # setprop sys.usb.config charging
 
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /vendor/bin/vcsFPService
