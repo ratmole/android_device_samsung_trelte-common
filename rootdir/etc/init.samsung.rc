@@ -143,7 +143,7 @@ on init
     chown system system /sys/kernel/hmp/down_threshold
 
     # set permission to 0660 for camera preview lagging
-    chmod 0660 /sys/kernel/hmp/down_threshold 
+    chmod 0660 /sys/kernel/hmp/down_threshold
 
     # reset_reason
     chown system system /proc/reset_reason
@@ -175,16 +175,16 @@ on init
     setprop logd.kernel false
 
 on post-fs
-    
+
     #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
     chown system log /proc/reset_summary
-    chmod 0440 /proc/reset_summary    
+    chmod 0440 /proc/reset_summary
     chown system log /proc/sec_log
 
 on post-fs-data
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
-    
+
     # Latin SSMS feature
     mkdir /efs/SMS 0775 radio system
 
@@ -215,14 +215,22 @@ on post-fs-data
     chmod 0644 /efs/h2k.dat
     chmod 0644 /efs/cpk/h2k.dat
     chown system system /efs/drm/h2k
-  
+
     # mobicore
     export MC_AUTH_TOKEN_PATH /efs
     mkdir /efs/TEE  0770 radio system
 	  chmod 0660 /dev/t-base-tui
     chown system system /dev/t-base-tui
+    mkdir /data/app/mcRegistry 0775 system system
+    mkdir /system/app/mcRegistry/TbStorage 0775 system system
+    chmod 0700 /dev/mobicore
+    chmod 0666 /dev/mobicore-user
+    chmod 0660 /dev/s5p-smem
+    chown system system /dev/mobicore
+    chown radio system /dev/mobicore-user
+    chown system system /dev/s5p-smem
     start mobicore
-  
+
     # DRM directory creation
     mkdir /system/etc/security/.drm 0775
     chown root root /system/etc/security/.drm
@@ -258,7 +266,7 @@ on boot
     mkdir /efs/bluetooth 0775 radio system
     chown radio system /efs/bluetooth
     chmod 0775 /efs/bluetooth
-    
+
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth net_bt_stack ro.bt.bdaddr_path
     chown radio net_bt_stack /efs/bluetooth/bt_addr
@@ -271,7 +279,7 @@ on boot
     chmod 0660 /dev/usb_mtp_gadget
     chown system mtp /dev/usb_mtp_gadget
     mkdir /dev/socket/mtp 0770 system mtp
-    
+
     chown system system /sys/devices/system/cpu/cpufreq/interactive/multi_enter_load
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/multi_enter_load
     chown system system /sys/devices/system/cpu/cpufreq/interactive/multi_enter_time
@@ -543,7 +551,7 @@ on boot
     chmod 0664 /sys/class/usb_notify/usb_control/usb_hw_param
     chown system usb /sys/class/usb_notify/usb_control/hw_param
     chmod 0664 /sys/class/usb_notify/usb_control/hw_param
-	
+
 # Permissions for System LSI NFC
 # NFC : Permissions for NFC
     chmod 0660 /dev/sec-nfc
@@ -739,9 +747,9 @@ on charger
     copy /system/vendor/firmware/battery_data.dat /efs/Battery/battery_data.dat
     chmod 0400 /efs/Battery/battery_data.dat
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
-	
+
 # Sensorhub service
 service sensorhubservice /system/vendor/bin/sensorhubservice
     class main
     user system
-    group input	
+    group input
