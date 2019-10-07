@@ -27,6 +27,8 @@ namespace android {
 
 static const char PIXEL_FORMAT_YUV420SP_NV21[] = "nv21";
 
+static const char PIXEL_FORMAT_BGRA8888[] = "bgra8888";
+
 static int32_t getColorFormat(const char* colorFormat) {
     if (!colorFormat) {
         ALOGE("Invalid color format");
@@ -48,6 +50,11 @@ static int32_t getColorFormat(const char* colorFormat) {
     if (!strcmp(colorFormat, PIXEL_FORMAT_YUV420SP_NV21)) {
         static const int OMX_SEC_COLOR_FormatNV21Linear = 0x7F000011;
         return OMX_SEC_COLOR_FormatNV21Linear;
+    }
+
+    if (!strcmp(colorFormat, PIXEL_FORMAT_BGRA8888)) {
+        static const int OMX_SEC_COLOR_FormatBGRA8888Linear = 0x7f000789;
+        return OMX_SEC_COLOR_FormatBGRA8888Linear;
     }
 
     if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_YUV422I)) {
