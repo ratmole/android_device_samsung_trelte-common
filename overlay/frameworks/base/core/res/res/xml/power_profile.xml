@@ -33,7 +33,7 @@
         <value>86</value>
         <value>79</value>
     </array>
-    <array name="cpu.speeds.cluster0">
+    <array name="cpu.core_speeds.cluster0">
         <value>1300000</value>
         <value>1200000</value>
         <value>1100000</value>
@@ -60,7 +60,7 @@
         <value>197</value>
         <value>153</value>
     </array>
-    <array name="cpu.speeds.cluster1">
+    <array name="cpu.core_speeds.cluster1">
         <value>1900000</value>
         <value>1800000</value>
         <value>1700000</value>
@@ -75,7 +75,7 @@
         <value>800000</value>
         <value>700000</value>
     </array>
-    <item name="cpu.idle">3.56</item>
+    <item name="cpu.suspend">3.56</item>
     <item name="cpu.awake">31.59</item>
     <item name="wakeup.power">0.15</item>
     <item name="battery.capacity">3220</item>
