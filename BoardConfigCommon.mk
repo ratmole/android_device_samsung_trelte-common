@@ -78,9 +78,6 @@ TARGET_AUDIOHAL_VARIANT := samsung
 # Workaround for call audio mute after booting
 # BOARD_USE_MUTE_WORKAROUND := true
 
-# Exclude AudioFX
-TARGET_EXCLUDES_AUDIOFX := true
-
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
