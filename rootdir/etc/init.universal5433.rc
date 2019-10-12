@@ -763,10 +763,11 @@ on property:ro.debuggable=1
 # LPM
 on property:ro.bootmode=charger
     class_start charger
-
-service charger /charger
+	start lpm
+	
+service lpm /vendor/bin/lpm
     class charger
-    seclabel u:r:charger:s0
+    critical
 
 on charger
     # Set cpu governor to powersave while in charging mode
