@@ -249,10 +249,6 @@ on boot
     chmod 0660 /sys/kernel/hmp/load_avg_period_ms
     chown system system /sys/kernel/hmp/up_threshold
     chmod 0660 /sys/kernel/hmp/up_threshold
-    write /sys/kernel/hmp/up_threshold 479
-    chown system system /sys/kernel/hmp/down_threshold
-    chmod 0660 /sys/kernel/hmp/down_threshold
-    write /sys/kernel/hmp/down_threshold 214
 
     # Change permission for interactive governor
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
@@ -395,10 +391,6 @@ on boot
     # WLAN
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
-    # ZRAM setup
-    write /sys/block/zram0/comp_algorithm lz4
-    write /proc/sys/vm/page-cluster 0
-
 on fs
     mount_all /fstab.universal5433
     setprop ro.crypto.fuse_sdcard true
@@ -494,6 +486,7 @@ on late-fs
     chown system radio /sys/class/sec/sec_epen/epen_firm_version
     chown system radio /sys/class/sec/sec_epen/epen_delay_time
     chown system radio /sys/class/sec/sec_epen/boost_level
+    chown system system /sys/class/sec/sec_epen/input/enabled
 
 # Permissions for gpio_keys
     chown radio system /sys/class/sec/sec_key/wakeup_keys
@@ -502,11 +495,15 @@ on late-fs
 # GPS
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value
     chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
-    exec -- /system/bin/rm -fr /data/system/gps
     mkdir /data/system 0771 system system
     chown system system /data/system
     mkdir /data/system/gps 0771 system system
     chown system system /data/system/gps
+    rm /data/system/gps/gps_started
+    rm /data/system/gps/glonass_started
+    rm /data/system/gps/beidou_started
+    rm /data/system/gps/smd_started
+    rm /data/system/gps/sv_cno.info
     symlink /data/system/gps /data/gps
     symlink /data/system/gps /data/system/gps/gps
 

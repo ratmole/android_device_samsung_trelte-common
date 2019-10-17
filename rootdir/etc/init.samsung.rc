@@ -304,9 +304,33 @@ on boot
     chown radio system /sys/power/cpufreq_max_limit
     chmod 0664 /sys/power/cpufreq_max_limit
 
+    chown radio system /sys/devices/11400000.mali/dvfs_table
+    chown radio system /sys/devices/11400000.mali/dvfs_min_lock
+    chown radio system /sys/devices/11400000.mali/dvfs_max_lock
+    chmod 0664 /sys/devices/11400000.mali/dvfs_table
+    chmod 0664 /sys/devices/11400000.mali/dvfs_min_lock
+    chmod 0664 /sys/devices/11400000.mali/dvfs_max_lock
+
+    chown radio system /sys/class/devfreq/bus_mif.7/available_frequencies
+    chown radio system /sys/class/devfreq/bus_mif.7/min_freq
+    chown radio system /sys/class/devfreq/bus_mif.7/max_freq
+    chmod 0664 /sys/class/devfreq/bus_mif.7/available_frequencies
+    chmod 0664 /sys/class/devfreq/bus_mif.7/min_freq
+    chmod 0664 /sys/class/devfreq/bus_mif.7/max_freq
+
+    chown radio system /sys/class/devfreq/bus_int.6/available_frequencies
+    chown radio system /sys/class/devfreq/bus_int.6/min_freq
+    chown radio system /sys/class/devfreq/bus_int.6/max_freq
+    chmod 0664 /sys/class/devfreq/bus_int.6/available_frequencies
+    chmod 0664 /sys/class/devfreq/bus_int.6/min_freq
+    chmod 0664 /sys/class/devfreq/bus_int.6/max_freq
+
     # NFC_NXP
+    setprop ro.nfc.port "I2C"
     chmod 0660 /dev/pn547
     chown nfc nfc /dev/pn547
+    chown nfc /dev/pn547
+    chgrp nfc /dev/pn547
 
     # NFC_BROADCOM
     chmod 0600 /dev/bcm2079x
@@ -325,6 +349,7 @@ on boot
     # Switch Device
     chown system radio /sys/class/sec/switch/usb_sel
     chown system radio /sys/class/sec/switch/uart_sel
+    chown system radio /sys/class/sec/switch/uart_en
     chown system radio /sys/class/sec/switch/otg_test
     chown system radio /sys/class/sec/switch/apo_factory
 
@@ -333,14 +358,17 @@ on boot
     chown radio system /sys/class/secgpio_check/secgpio_check_all/gpiosleep_check
     chown radio system /sys/class/secgpio_check/secgpio_check_all/checked_sleepGPIO
 
-#permission for TSP, Touchkey
+#permission for TSP, Touchkey and Wacom
     chown system radio /sys/class/sec/tsp/cmd
     chmod 0660 /sys/class/sec/tsp/input/enabled
     chown system system /sys/class/sec/tsp/input/enabled
 
     chmod 0660 /sys/class/sec_touchkey/input/enabled
     chown system system /sys/class/sec/sec_touchkey/input/enabled
-    chown system radio /sys/class/sec/sec_touchkey/brightness
+	chown system radio /sys/class/sec/sec_touchkey/brightness
+	
+	chmod 0660 /sys/class/sec/sec_epen/input/enabled
+    chown system system /sys/class/sec/sec_epen/input/enabled
 
 # Permissions for Auto Input
     chown system system /sys/class/sec/sec_auto_input/enable
@@ -421,6 +449,7 @@ on boot
    chown system radio /sys/class/power_supply/battery/batt_temp_table
    chown system radio /sys/class/power_supply/battery/batt_high_current_usb
    chown system radio /sys/class/power_supply/battery/batt_inbat_voltage
+   chown system radio /sys/class/power_supply/battery/batt_wdt_control
    chmod 0664 /sys/class/power_supply/battery/batt_high_current_usb
    chown system radio /sys/class/power_supply/battery/hmt_ta_connected
    chown system radio /sys/class/power_supply/battery/hmt_ta_charge
@@ -566,21 +595,21 @@ on boot
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
     chown system radio /sys/class/sensors/accelerometer_sensor/calibration
     chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
+    chown system radio /sys/class/sensors/accelerometer_sensor/selftest
     chown system radio /sys/class/sensors/accelerometer_sensor/vendor
     chown system radio /sys/class/sensors/accelerometer_sensor/name
-    chown system radio /sys/class/sensors/accelerometer_sensor/selftest
-    chown system radio /sys/class/sensors/accelerometer_sensor/lowpassfilter
+    chown system system /efs/calibration_data
+    chmod 0666 /efs/calibration_data
 # Proximity_sensor
     chown system radio /sys/class/sensors/proximity_sensor/state
     chown system radio /sys/class/sensors/proximity_sensor/raw_data
     chown system radio /sys/class/sensors/proximity_sensor/prox_avg
     chown system radio /sys/class/sensors/proximity_sensor/prox_cal
-    chown system radio /sys/class/sensors/proximity_sensor/vendor
-    chown system radio /sys/class/sensors/proximity_sensor/name
+    chown system radio /sys/class/sensors/proximity_sensor/prox_thresh
     chown system radio /sys/class/sensors/proximity_sensor/thresh_high
     chown system radio /sys/class/sensors/proximity_sensor/thresh_low
-    chown system radio /sys/class/sensors/proximity_sensor/barcode_emul_en
-    chown system radio /sys/class/sensors/proximity_sensor/prox_offset_pass
+    chown system radio /sys/class/sensors/proximity_sensor/vendor
+    chown system radio /sys/class/sensors/proximity_sensor/name
 # Light_sensor
     chown system radio /sys/class/sensors/light_sensor/lux
     chown system radio /sys/class/sensors/light_sensor/raw_data
@@ -594,15 +623,13 @@ on boot
     chown system radio /sys/class/sensors/gyro_sensor/selftest_dps
     chown system radio /sys/class/sensors/gyro_sensor/vendor
     chown system radio /sys/class/sensors/gyro_sensor/name
-# Barometer_sensor
-    chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
-    chown system radio /sys/class/sensors/barometer_sensor/vendor
-    chown system radio /sys/class/sensors/barometer_sensor/name
-    chown system radio /sys/class/sensors/barometer_sensor/calibration
 # Magnetic_sensor
+    chown system radio /sys/class/sensors/magnetic_sensor/selftest
     chown system radio /sys/class/sensors/magnetic_sensor/raw_data
+    chown system radio /sys/class/sensors/magnetic_sensor/adc
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
+    chown system radio /sys/class/sensors/magnetic_sensor/status
 # gesture_sensor
     chown system radio /sys/class/sensors/gesture_sensor/vendor
     chown system radio /sys/class/sensors/gesture_sensor/name
@@ -698,6 +725,50 @@ on boot
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/timed_output/vibrator/intensity
     chown system system /sys/class/timed_output/vibrator/multi_freq
+# Encryption
+on nonencrypted
+    class_start main
+    class_start late_start
+
+on property:vold.decrypt=trigger_default_encryption
+    start defaultcrypto
+
+on property:vold.decrypt=trigger_encryption
+    start surfaceflinger
+    start encrypt
+    
+on property:vold.decrypt=trigger_reset_main
+    class_reset main
+
+on property:vold.decrypt=trigger_load_persist_props
+    load_persist_props
+    start logd
+    start logd-reinit
+    start sysmon
+
+on property:vold.decrypt=trigger_post_fs_data
+    trigger post-fs-data
+
+on property:vold.decrypt=trigger_restart_min_framework
+    class_start main
+
+on property:vold.decrypt=trigger_restart_framework
+    class_start main
+    class_start late_start
+
+on property:vold.decrypt=trigger_shutdown_framework
+    class_reset late_start
+    class_reset main
+    
+service uncrypt /system/bin/uncrypt
+    class main
+    disabled
+    oneshot
+
+service pre-recovery /system/bin/uncrypt --reboot
+    class main
+    disabled
+    oneshot
 
 #Store Gyro cal data
     chown system system /efs/FactoryApp/gyro_cal_data
