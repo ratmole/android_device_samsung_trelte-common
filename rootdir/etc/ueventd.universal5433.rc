@@ -52,8 +52,8 @@
 # mscalers
 /dev/video50              0666   media      graphics
 /dev/video51              0666   media      graphics
-/dev/m2m1shot_scaler0     0660   cameraserver     graphics
-/dev/m2m1shot_scaler1     0660   cameraserver     graphics
+/dev/m2m1shot_scaler0     0660   media     graphics
+/dev/m2m1shot_scaler1     0660   media     graphics
 
 /dev/video55              0666   system     graphics
 /dev/fimg2d               0666   system     graphics
@@ -74,7 +74,7 @@
 /dev/video101             0660   media      media
 /dev/video102             0660   media      media
 /dev/video103             0660   media      media
-/dev/video109             0666   media      media
+/dev/video109             0660   media      media
 /dev/video110             0660   media      media
 /dev/video111             0660   media      media
 /dev/video112             0660   media      media
