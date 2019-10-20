@@ -66,6 +66,7 @@ PRODUCT_PACKAGES += \
     camera.device@1.0-impl-legacy \
     libexynoscamera_shim \
 	libstagefright_shim \
+    camera.universal5433 \
     Snap
 
 PRODUCT_COPY_FILES += \
