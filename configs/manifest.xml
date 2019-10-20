@@ -33,6 +33,10 @@
         <name>android.hardware.camera.provider</name>
         <transport arch="32">passthrough</transport>
         <version>2.4</version>
+        <interface>
+            <name>ICameraProvider</name>
+            <instance>legacy/0</instance>
+        </interface>
     </hal>
     <hal format="hidl">
         <name>android.hardware.cas</name>
@@ -117,7 +121,7 @@
             <instance>backup</instance>
             <instance>default</instance>
         </interface>
-    </hal>    
+    </hal>
     <hal format="hidl">
         <name>android.hardware.keymaster</name>
         <transport>hwbinder</transport>

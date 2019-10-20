@@ -65,7 +65,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-legacy \
     camera.device@1.0-impl-legacy \
     libexynoscamera_shim \
-		libstagefright_shim \
+	libstagefright_shim \
     Snap
 
 PRODUCT_COPY_FILES += \
