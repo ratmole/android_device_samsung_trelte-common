@@ -185,7 +185,7 @@ on post-fs-data
     # avoid USB crash
 	setprop persist.adb.nonblocking_ffs 0
 	setprop ro.adb.nonblocking_ffs 0
-	
+
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
 
@@ -334,7 +334,6 @@ on boot
     chmod 0660 /dev/pn547
     chown nfc nfc /dev/pn547
     chown nfc /dev/pn547
-    chgrp nfc /dev/pn547
 
     # NFC_BROADCOM
     chmod 0600 /dev/bcm2079x
@@ -370,7 +369,7 @@ on boot
     chmod 0660 /sys/class/sec_touchkey/input/enabled
     chown system system /sys/class/sec/sec_touchkey/input/enabled
 	chown system radio /sys/class/sec/sec_touchkey/brightness
-	
+
 	chmod 0660 /sys/class/sec/sec_epen/input/enabled
     chown system system /sys/class/sec/sec_epen/input/enabled
 
@@ -740,7 +739,7 @@ on property:vold.decrypt=trigger_default_encryption
 on property:vold.decrypt=trigger_encryption
     start surfaceflinger
     start encrypt
-    
+
 on property:vold.decrypt=trigger_reset_main
     class_reset main
 
@@ -763,7 +762,7 @@ on property:vold.decrypt=trigger_restart_framework
 on property:vold.decrypt=trigger_shutdown_framework
     class_reset late_start
     class_reset main
-    
+
 service uncrypt /system/bin/uncrypt
     class main
     disabled
@@ -773,15 +772,6 @@ service pre-recovery /system/bin/uncrypt --reboot
     class main
     disabled
     oneshot
-
-#Store Gyro cal data
-    chown system system /efs/FactoryApp/gyro_cal_data
-    chmod 0660 /efs/FactoryApp/gyro_cal_data
-
-# Assign TCP buffer thresholds to be ceiling value of technology maximums
-# Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max  1048576
-    write /proc/sys/net/core/wmem_max  2097152
 
 # MobiCore startup
 service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
