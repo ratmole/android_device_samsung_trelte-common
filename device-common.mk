@@ -133,6 +133,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     dtbhtoolExynos
 
+ifeq ($(filter tre3gxx trelsktk trelte treltektt treltelgt trelteskt treltexx trhpltexx,$(TARGET_DEVICE)),)
+# FlipFlap
+PRODUCT_PACKAGES += \
+    FlipFlap
+
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/flp.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/flp.conf
+endif
+
 # Gps
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl \
