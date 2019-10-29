@@ -2,6 +2,8 @@ COMMON_PATH := device/samsung/trelte-common
 
 PRODUCT_CHARACTERISTICS := phone
 
+TARGET_BOOT_ANIMATION_RES := 1440
+
 # ADB INSECURE
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.secure=0 \
@@ -133,15 +135,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     dtbhtoolExynos
 
-ifeq ($(filter tre3gxx trelsktk trelte treltektt treltelgt trelteskt treltexx trhpltexx,$(TARGET_DEVICE)),)
-# FlipFlap
-PRODUCT_PACKAGES += \
-    FlipFlap
-
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/flp.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/flp.conf \
-endif
-
 # Gps
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl \
@@ -229,6 +222,10 @@ PRODUCT_PACKAGES += \
     android.system.net.netd@1.0 \
     libandroid_net \
     netutils-wrapper-1.0
+
+# OpenGApps
+TARGET_GAPPS_ARCH := arm
+GAPPS_VARIANT := stock
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
