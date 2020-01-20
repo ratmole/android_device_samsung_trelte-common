@@ -145,7 +145,6 @@ endif
 # Gps
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl \
-    gps.default \
     libshim_gpsd
 
 PRODUCT_COPY_FILES += \
