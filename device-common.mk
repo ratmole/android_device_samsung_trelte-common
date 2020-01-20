@@ -74,8 +74,7 @@ PRODUCT_COPY_FILES += \
 
 # Codecs
 PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libExynosOMX_Core
+    libstagefrighthw
 
 #PRODUCT_PACKAGES += \
 #   libOMX.Exynos.AAC.Decoder \
