@@ -144,8 +144,7 @@ endif
 
 # Gps
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl \
-    libshim_gpsd
+    android.hardware.gnss@1.0-impl
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/gps/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf \
